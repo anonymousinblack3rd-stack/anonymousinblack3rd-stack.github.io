@@ -44,3 +44,30 @@
 /* fórmula inline longa rola dentro do bloco, não empurra a página */
 .qr .enunciado,.qr .resolucao{overflow-x:auto}
 .qr math{max-width:100%}
+
+/* teoria do capítulo, quando a página traz o texto do livro */
+.teoria-livro{font-size:16.5px;margin:0 0 10px}
+.teoria-livro h2,.teoria-livro h3{font-family:var(--ff-tit);color:var(--tx)}
+.teoria-livro h2{font-size:23px;margin:34px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--ac)}
+.teoria-livro h3{font-size:19px;margin:26px 0 10px;color:var(--ac)}
+.teoria-livro p{margin:0 0 12px}
+.teoria-livro img{display:block;margin:16px auto;max-width:min(100%,430px);height:auto}
+.teoria-livro table{border-collapse:collapse;margin:14px auto;max-width:100%;display:block;overflow-x:auto}
+.teoria-livro td,.teoria-livro th{border:1px solid var(--ln);padding:5px 10px;font-size:15px}
+.teoria-livro ol,.teoria-livro ul{padding-left:22px}
+.teoria-livro .ltx_item{list-style:none}
+.teoria-livro math{max-width:100%}
+.teoria-livro .ltx_para{overflow-x:auto}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .teoria-livro img{
+  background:#fff;border-radius:6px;padding:6px} }
+/* a resposta destacada, como a caixa do livro */
+.resp-box{border:1px solid var(--ac2);background:var(--wash);border-radius:7px;
+  padding:9px 14px;margin:12px 0 0;font-size:16px}
+
+/* vídeos dos teoremas */
+.videos{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:0 0 10px}
+.vid{margin:0;border:1px solid var(--ln);border-radius:10px;background:var(--sf);overflow:hidden}
+.vid video{display:block;width:100%;height:auto;background:#fff}
+.vid figcaption{padding:13px 16px}
+.vid figcaption b{font-family:var(--ff-tit);font-size:16.5px;display:block;margin-bottom:3px;color:var(--ac)}
+.vid figcaption span{color:var(--mu);font-size:15px}
