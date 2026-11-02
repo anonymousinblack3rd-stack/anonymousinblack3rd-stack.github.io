@@ -250,3 +250,12 @@ h3.grupo{font-family:var(--ff-tit);font-size:16px;font-weight:700;color:var(--mu
 .prog{border:1px solid var(--ln);border-radius:9px;background:var(--sf);padding:14px 18px;margin:0 0 9px}
 .prog b{font-family:var(--ff-tit);font-size:16px;display:block;margin-bottom:3px}
 .prog span{color:var(--mu);font-size:15.5px}
+
+/* celular estreito: cabeçalho empilhado, sem estouro horizontal */
+@media (max-width:620px){
+  html,body{max-width:100%}
+  header.top .bar{display:block;padding:13px 0}
+  header.top .nome{display:block}
+  header.top nav{display:flex;flex-wrap:wrap;gap:3px;margin:9px 0 0}
+  header.top nav a{padding:6px 9px;font-size:13.5px}
+}
