@@ -121,3 +121,63 @@ p{margin:0 0 13px}
 .ggb-alvo{min-height:60px}
 footer{border-top:1px solid var(--ln);padding:26px 0 44px;color:var(--mu);font-size:14.5px}
 footer p{margin:0 0 5px}
+
+/* --- subnavegacao interna --- */
+.subnav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding:14px 0 0}
+.subnav a{font-family:var(--ff-tit);font-size:14px;font-weight:600;text-decoration:none;
+  color:var(--mu);border:1px solid var(--ln);background:var(--sf);
+  padding:7px 14px;border-radius:999px}
+.subnav a:hover{color:var(--ac);border-color:var(--ac);background:var(--wash)}
+
+/* --- grupos por assunto --- */
+h3.grupo{font-family:var(--ff-tit);font-size:16px;font-weight:700;color:var(--mu);
+  letter-spacing:.04em;text-transform:uppercase;margin:26px 0 12px}
+.vazio{border:1px dashed var(--ln);border-radius:10px;padding:16px 20px;margin:0 0 13px;
+  color:var(--mu);font-size:15.5px;background:transparent}
+.vazio b{font-family:var(--ff-tit);color:var(--tx);font-weight:600}
+.tag{font-family:var(--ff-tit);font-size:11.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mu);border:1px solid var(--ln);
+  border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+
+/* --- dicas de estudo --- */
+.dica{border-left:3px solid var(--ac2);padding:2px 0 2px 18px;margin:0 0 22px}
+.dica h3{font-family:var(--ff-tit);font-size:18px;margin:0 0 6px;color:var(--tx)}
+.dica p{margin:0 0 9px;font-size:16.5px}
+.dica p:last-child{margin-bottom:0}
+
+/* --- exercicios interativos --- */
+.quiz{margin:0}
+.barra{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  border:1px solid var(--ln);border-radius:10px;background:var(--sf);
+  padding:13px 18px;margin:0 0 22px;font-family:var(--ff-tit);font-size:14.5px;color:var(--mu)}
+.barra b{color:var(--ac);font-size:16px}
+.barra .btn{padding:6px 14px;margin-left:auto}
+.q{border:1px solid var(--ln);border-radius:10px;background:var(--sf);
+  padding:22px 24px;margin:0 0 20px}
+.q .num{font-family:var(--ff-tit);font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mu);margin:0 0 8px}
+.q .enun{font-size:16.5px;margin:0 0 14px}
+.q .enun .mt{font-family:var(--ff-tex);font-style:italic}
+.alts{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.alts li{margin:0}
+.alt{width:100%;text-align:left;display:flex;gap:11px;align-items:baseline;
+  font-family:var(--ff-tex);font-size:16.5px;color:var(--tx);cursor:pointer;
+  border:1px solid var(--ln);border-radius:8px;background:var(--bg);padding:10px 14px}
+.alt:hover{border-color:var(--ac2)}
+.alt .letra{font-family:var(--ff-tit);font-weight:700;font-size:14px;color:var(--mu);
+  min-width:18px}
+.alt[data-estado="certa"]{border-color:#2e7d4f;background:rgba(46,125,79,.09)}
+.alt[data-estado="certa"] .letra{color:#2e7d4f}
+.alt[data-estado="errada"]{border-color:#a33a3a;background:rgba(163,58,58,.09)}
+.alt[data-estado="errada"] .letra{color:#a33a3a}
+.alt[disabled]{cursor:default}
+.fb{font-family:var(--ff-tit);font-size:14.5px;font-weight:600;margin:0 0 12px}
+.fb.ok{color:#2e7d4f}
+.fb.no{color:#a33a3a}
+.sol{border-top:1px solid var(--ln);margin-top:14px;padding-top:14px}
+.sol h4{font-family:var(--ff-tit);font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mu);margin:0 0 8px}
+.sol p{margin:0 0 10px;font-size:16.5px}
+.sol p:last-child{margin-bottom:0}
+.sol .resp{font-family:var(--ff-tit);font-weight:700;color:var(--ac)}
+.oculto{display:none}
