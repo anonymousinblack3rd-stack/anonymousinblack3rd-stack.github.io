@@ -1,0 +1,46 @@
+/* índice das questões */
+.indice{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 30px}
+.indice a{font-family:var(--ff-tit);font-size:13px;font-weight:600;text-decoration:none;
+  color:var(--mu);border:1px solid var(--ln);background:var(--sf);
+  min-width:34px;text-align:center;padding:5px 7px;border-radius:7px}
+.indice a:hover{color:var(--ac);border-color:var(--ac);background:var(--wash)}
+
+/* bloco de questão */
+.qr{border:1px solid var(--ln);border-radius:10px;background:var(--sf);
+  padding:20px 24px;margin:0 0 18px;scroll-margin-top:16px}
+.qr .qnum{font-family:var(--ff-tit);font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ac);margin:0 0 10px}
+.qr .enunciado{font-size:16.5px}
+.qr details{margin-top:14px;border-top:1px solid var(--ln);padding-top:12px}
+.qr summary{font-family:var(--ff-tit);font-size:14.5px;font-weight:600;color:var(--ac);
+  cursor:pointer;list-style:none;display:inline-block;
+  border:1px solid var(--ac);border-radius:7px;padding:7px 15px}
+.qr summary::-webkit-details-marker{display:none}
+.qr summary:hover{background:var(--wash)}
+.qr details[open] summary{margin-bottom:12px}
+.qr .resolucao{font-size:16.5px}
+.qr .voltar{margin:14px 0 0;text-align:right}
+.qr .voltar a{font-family:var(--ff-tit);font-size:13px;color:var(--mu);text-decoration:none}
+.qr .voltar a:hover{color:var(--ac)}
+
+/* restos da conversão do LaTeX */
+.qr p{margin:0 0 10px}
+.qr p:last-child{margin-bottom:0}
+.qr ol,.qr ul{margin:8px 0 10px;padding-left:22px}
+.qr .ltx_item{margin:0 0 4px;list-style:none}
+.qr .ltx_toclist,.qr .ltx_itemize{list-style:none;padding-left:14px}
+.qr img{display:block;margin:14px auto;max-width:min(100%,420px);height:auto}
+.qr math{font-size:1.02em}
+.qr .ltx_Math{white-space:normal}
+.qr blockquote{margin:12px 0;padding-left:16px;border-left:3px solid var(--ln);color:var(--mu)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .qr img{
+  background:#fff;border-radius:6px;padding:6px} }
+/* matemática larga não pode empurrar a página */
+.qr math[display="block"],.qr .ltx_equation,.qr .ltx_eqn_table{
+  display:block;max-width:100%;overflow-x:auto;overflow-y:hidden}
+.qr table{display:block;max-width:100%;overflow-x:auto}
+.qr{overflow-wrap:anywhere}
+@media(max-width:600px){ .indice a{min-width:30px;padding:4px 5px;font-size:12px} }
+/* fórmula inline longa rola dentro do bloco, não empurra a página */
+.qr .enunciado,.qr .resolucao{overflow-x:auto}
+.qr math{max-width:100%}
