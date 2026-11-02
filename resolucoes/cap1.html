@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometria Espacial — Curso Avançado — Soluções Passo a Passo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* layout: uma coluna de leitura, cada questao num cartao com a resolucao recolhida */
+
+:root{
+  --bg:#ffffff; --sf:#f6f8fa; --tx:#17212b; --mu:#5f6b76; --ac:#154c79;
+  --ac2:#4683b4; --ln:#dde4ea;
+  --pl-f:#eef1f4; --pl-s:#9aa7b2; --pl-q:#4683b41f; --pl-q2:#4683b433;
+  --pl-g:#5f6b7618; --pl-g2:#5f6b7628; --pl-g3:#5f6b7620;
+  --ff-tit:"Source Sans 3",system-ui,sans-serif;
+  --ff-tex:"Source Serif 4",Georgia,serif;
+  --ff-mat:"Source Serif 4",Georgia,serif;
+  color-scheme:light;
+}
+
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11161b; --sf:#171e25; --tx:#e6ecf2; --mu:#9bacba; --ac:#7fb3e0;
+  --ac2:#7fb3e0; --ln:#2a343d;
+  --pl-f:#1d262e; --pl-s:#6b7c8a; --pl-q:#7fb3e026; --pl-q2:#7fb3e03d;
+  --pl-g:#9bacba18; --pl-g2:#9bacba28; --pl-g3:#9bacba20;
+  color-scheme:dark;
+} }
+:root[data-theme="dark"]{
+  --bg:#11161b; --sf:#171e25; --tx:#e6ecf2; --mu:#9bacba; --ac:#7fb3e0;
+  --ac2:#7fb3e0; --ln:#2a343d;
+  --pl-f:#1d262e; --pl-s:#6b7c8a; --pl-q:#7fb3e026; --pl-q2:#7fb3e03d;
+  --pl-g:#9bacba18; --pl-g2:#9bacba28; --pl-g3:#9bacba20;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--ff-tex);
+  font-size:17px;line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 72px}
+header.top{padding:44px 0 26px;border-bottom:2px solid var(--ac);margin-bottom:28px}
+.eyebrow{font-family:var(--ff-tit);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mu);margin:0 0 10px}
+h1{font-family:var(--ff-tit);font-weight:700;font-size:clamp(28px,6vw,40px);line-height:1.12;
+  margin:0 0 12px;color:var(--ac);text-wrap:balance}
+.cap{font-family:var(--ff-tit);font-weight:600;font-size:17px;color:var(--tx);margin:0 0 12px}
+.lead{margin:0;color:var(--mu);font-size:16.5px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{font-family:var(--ff-tit);font-size:12.5px;padding:4px 11px;border:1px solid var(--ln);
+  border-radius:999px;color:var(--mu);background:var(--sf)}
+.q{border:1px solid var(--ln);border-radius:10px;background:var(--sf);
+  padding:20px 22px;margin:0 0 20px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.num{font-family:var(--ff-tit);font-weight:700;font-size:15px;color:var(--bg);background:var(--ac);
+  width:30px;height:30px;border-radius:7px;display:grid;place-items:center;flex:none}
+.src{font-family:var(--ff-tit);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mu);border:1px solid var(--ln);border-radius:999px;padding:2px 10px;background:var(--bg)}
+.en p{margin:0 0 10px}
+.en p:last-child{margin-bottom:0}
+ol.rom{margin:10px 0;padding-left:1.6em}
+ol.rom{list-style:upper-roman}
+ol.rom li{margin:3px 0;padding-left:4px}
+ol.alf{list-style:lower-alpha;margin:10px 0;padding-left:1.7em}
+ol.alf li{margin:3px 0;padding-left:4px}
+ol.alt{list-style:lower-alpha;margin:14px 0 4px;padding-left:1.7em;color:var(--tx)}
+ol.alt li{margin:4px 0;padding-left:4px}
+details{margin-top:14px;border-top:1px solid var(--ln);padding-top:12px}
+summary{font-family:var(--ff-tit);font-weight:600;font-size:14.5px;color:var(--ac);cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"";width:0;height:0;border:5px solid transparent;border-left-color:var(--ac);
+  transition:transform .18s ease;transform-origin:3px 50%}
+details[open] summary::before{transform:rotate(90deg)}
+summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:4px}
+.sol{padding-top:10px;font-size:16.5px}
+.sol p{margin:0 0 11px}
+.gab{font-family:var(--ff-tit);font-size:14.5px;background:var(--bg);border-left:3px solid var(--ac);
+  padding:9px 13px;border-radius:0 6px 6px 0;margin-top:14px!important;color:var(--tx)}
+.dest{text-align:center;font-size:19px;margin:16px 0!important}
+figure{margin:14px 0 16px;background:var(--bg);border:1px solid var(--ln);border-radius:8px;
+  padding:12px 10px;overflow-x:auto}
+figure.enun{margin:14px 0}
+i{font-style:italic}
+footer{margin-top:40px;padding-top:22px;border-top:1px solid var(--ln);color:var(--mu);font-size:14.5px}
+footer p{margin:0 0 6px}
+@media (max-width:420px){ body{font-size:16px} .q{padding:16px 15px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+svg{max-width:100%;height:auto;display:block;margin:0 auto}
+svg text{font-family:var(--ff-mat);font-style:italic;fill:var(--tx)}
+.pl,.plb{fill:var(--pl-f);stroke:var(--pl-s)}
+.plc{fill:var(--pl-f);stroke:var(--pl-s)}
+.plg{fill:var(--pl-g);stroke:var(--tx);}
+.plg2{fill:var(--pl-g2);stroke:var(--tx)}
+.plg3{fill:var(--pl-g3);stroke:var(--tx)}
+.plq{fill:var(--pl-q);stroke:var(--ac)}
+.plq2{fill:var(--pl-q2);stroke:var(--ac)}
+.pl,.plb,.plc,.plg,.plg2,.plg3,.plq,.plq2{stroke-width:calc(var(--u)*1.1);stroke-linejoin:round}
+.ar{stroke:var(--tx);fill:none;stroke-width:calc(var(--u)*1.3);stroke-linecap:round}
+.ar2{stroke:var(--tx);fill:none;stroke-width:calc(var(--u)*1.5);stroke-linecap:round}
+.rt{stroke:var(--ac);fill:none;stroke-width:calc(var(--u)*2.8);stroke-linecap:round}
+.pj{stroke:var(--mu);fill:none;stroke-width:calc(var(--u)*3.2);stroke-linecap:round}
+.pe{stroke:var(--mu);fill:none;stroke-width:calc(var(--u)*1.8);stroke-linecap:round}
+.ei{stroke:var(--tx);fill:none;stroke-width:calc(var(--u)*1.5)}
+.hd{stroke:var(--mu);fill:none;stroke-width:calc(var(--u)*1.1);
+    stroke-dasharray:calc(var(--u)*5) calc(var(--u)*4.5);stroke-linecap:butt}
+.rtd{stroke:var(--ac);fill:none;stroke-width:calc(var(--u)*2.8);stroke-linecap:butt;
+     stroke-dasharray:calc(var(--u)*6) calc(var(--u)*5)}
+.pjd{stroke:var(--mu);fill:none;stroke-width:calc(var(--u)*3.2);stroke-linecap:butt;
+     stroke-dasharray:calc(var(--u)*6) calc(var(--u)*5)}
+.ard{stroke:var(--tx);fill:none;stroke-width:calc(var(--u)*1.3);stroke-linecap:butt;
+     stroke-dasharray:calc(var(--u)*5) calc(var(--u)*4.5)}
+.ang{stroke:var(--mu);fill:none;stroke-width:calc(var(--u)*1.0)}
+.vt{fill:var(--tx)}
+.lb{font-size:calc(var(--u)*15)}
+.lbp{font-size:calc(var(--u)*15);fill:var(--mu)}
+.lbr{font-size:calc(var(--u)*15);fill:var(--ac)}
+.lbn{font-size:calc(var(--u)*12.5);font-style:normal;fill:var(--mu);text-anchor:middle}
+.cap{font-size:calc(var(--u)*13);font-style:normal;fill:var(--mu);text-anchor:middle}
+
+</style></head>
+<body>
+<div class="wrap">
+<p style="margin:0;padding:18px 0 0"><a href="../index.html" style="font-family:var(--ff-tit);font-size:14.5px;font-weight:600;text-decoration:none;color:var(--mu)">← Voltar ao site</a></p>
+<header class="top" style="padding-top:26px">
+  <p class="eyebrow">Geometria Espacial · Curso Avançado</p>
+  <h1>Soluções Passo a Passo</h1>
+  <p class="cap">Capítulo 1 · Geometria de posição</p>
+  <p class="lead">As resoluções do livro, escritas por inteiro e com os desenhos.
+  Cada questão traz o enunciado como ele caiu, e a resolução abre embaixo.</p>
+  <div class="meta"><span class="pill">25 das 109 questões do capítulo</span>
+  <span class="pill">EsPCEx · ESA · AFA · ITA · Escola Naval · FUVEST · UFMS · UECE</span></div>
+</header>
+<article class="q" id="q1">
+<div class="hd"><span class="num">1</span><span class="src">EsPCEx</span></div>
+<div class="en"><p>Considere as afirmações:</p>
+<ol class="rom">
+<li>Dois planos distintos que se intersectam são chamados de planos secantes.</li>
+<li>Se duas retas não têm ponto em comum, então elas só podem ser paralelas.</li>
+<li>Se dois planos não coincidentes têm um ponto em comum, então eles têm uma reta em comum.</li>
+<li>Se uma reta é paralela a um plano, ela é paralela a qualquer reta desse plano.</li>
+</ol><p>Destas, é(são) correta(s) apenas</p></div>
+<ol class="alt"><li>I</li><li>II e IV</li><li>I e IV</li><li>III</li><li>I e III</li></ol>
+<details open><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.420 8.560 2.840" width="760" height="252" role="img" style="--u:0.01126px" aria-label="Reta paralela a um plano"><polygon class="pl" points="0.000,-0.000 6.200,-0.000 7.720,-0.677 1.520,-0.677"/><text class="lbp" x="7.056" y="-0.582">&#945;</text><line class="hd" x1="1.431" y1="-0.370" x2="6.431" y2="-0.370"/><line class="hd" x1="1.431" y1="-1.920" x2="1.431" y2="-0.370"/><line class="hd" x1="6.431" y1="-1.920" x2="6.431" y2="-0.370"/><line class="rt" x1="1.431" y1="-1.920" x2="6.431" y2="-1.920"/><text class="lbr" x="6.571" y="-2.000">r</text><line class="ar" x1="1.083" y1="-0.148" x2="5.633" y2="-0.148"/><text class="lb" x="5.773" y="-0.088">s</text><line class="ar" x1="2.575" y1="-0.635" x2="4.493" y2="-0.063"/><text class="lb" x="2.375" y="-0.715">t</text></svg></figure>
+<p><b>I. Verdadeira.</b> É a definição de planos secantes.</p>
+<p><b>II. Falsa.</b> Duas retas sem ponto comum podem ser reversas, como <i>r</i> e <i>t</i> na figura.</p>
+<p><b>III. Verdadeira.</b> É o postulado da interseção de planos.</p>
+<p><b>IV. Falsa.</b> Com <i>r</i> ∥ α, as retas de α são paralelas a <i>r</i>, como <i>s</i>, ou reversas a
+<i>r</i>, como <i>t</i>. Nenhuma a corta, mas nem todas são paralelas.</p>
+<p>Corretas: <b>I e III</b>.</p>
+<p class="gab">Resposta: <b>(e)</b> I e III</p></div></details>
+</article><article class="q" id="q2">
+<div class="hd"><span class="num">2</span><span class="src">ESA</span></div>
+<div class="en"><p>Analise as assertivas:</p>
+<ol class="rom">
+<li>Se duas retas de um plano, distintas e concorrentes, são paralelas a outro plano, então os dois planos são paralelos entre si.</li>
+<li>Duas ou mais retas são coplanares quando existe um plano que contém todas elas.</li>
+<li>Quando uma reta é perpendicular a um plano, todos os planos que a contêm são perpendiculares a esse plano.</li>
+<li>A projeção ortogonal de um segmento sobre um plano pode ser um segmento ou um ponto.</li>
+</ol></div>
+<ol class="alt"><li>Apenas I e IV são verdadeiras.</li><li>Apenas II e III são verdadeiras.</li><li>Apenas I, II e III são verdadeiras.</li><li>Todas são verdadeiras.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.760 8.865 3.229" width="760" height="277" role="img" style="--u:0.01166px" aria-label="Projecao ortogonal de um segmento"><polygon class="pl" points="0.000,-0.000 6.600,-0.000 8.025,-0.635 1.425,-0.635"/><text class="lbp" x="7.276" y="-0.546">&#945;</text><line class="hd" x1="1.808" y1="-2.260" x2="1.808" y2="-0.360"/><line class="hd" x1="3.528" y1="-0.940" x2="3.528" y2="-0.190"/><line class="pj" x1="1.808" y1="-0.360" x2="3.528" y2="-0.190"/><line class="rt" x1="1.808" y1="-2.260" x2="3.528" y2="-0.940"/><circle class="vt" cx="1.808" cy="-2.260" r="0.055"/><text class="lb" x="1.648" y="-2.340">A</text><circle class="vt" cx="3.528" cy="-0.940" r="0.055"/><text class="lb" x="3.648" y="-1.000">B</text><circle class="vt" cx="1.808" cy="-0.360" r="0.055"/><text class="lb" x="1.608" y="-0.140">A&#8242;</text><circle class="vt" cx="3.528" cy="-0.190" r="0.055"/><text class="lb" x="3.628" y="0.050">B&#8242;</text><line class="hd" x1="6.060" y1="-2.238" x2="6.060" y2="-0.338"/><line class="rt" x1="6.060" y1="-2.238" x2="6.060" y2="-1.038"/><circle class="vt" cx="6.060" cy="-2.238" r="0.055"/><text class="lb" x="6.180" y="-2.298">C</text><circle class="vt" cx="6.060" cy="-1.038" r="0.055"/><text class="lb" x="6.180" y="-0.978">D</text><circle class="vt" cx="6.060" cy="-0.338" r="0.055"/><text class="lb" x="6.180" y="-0.078">C&#8242;=D&#8242;</text></svg></figure>
+<p>Todas são verdadeiras.</p>
+<p><b>I.</b> É o teorema do paralelismo entre planos, e a palavra <i>concorrentes</i> é essencial: duas
+retas paralelas de α, paralelas a β, não garantem nada.</p>
+<p><b>II.</b> É a definição de retas coplanares.</p>
+<p><b>III.</b> É o critério de perpendicularidade entre planos.</p>
+<p><b>IV.</b> A projeção de um segmento só degenera num ponto quando o segmento é perpendicular ao
+plano, como <i>CD</i> na figura.</p>
+<p class="gab">Resposta: <b>(d)</b> Todas são verdadeiras.</p></div></details>
+</article><article class="q" id="q3">
+<div class="hd"><span class="num">3</span><span class="src">EsPCEx</span></div>
+<div class="en"><p>Analise as proposições:</p>
+<ol class="rom">
+<li>Se dois planos são secantes, então qualquer reta de um deles é concorrente ao outro.</li>
+<li>Se uma reta é paralela a um plano, ela é paralela a infinitas retas desse plano.</li>
+<li>Se dois planos têm uma única reta em comum, eles são secantes.</li>
+<li>Duas retas perpendiculares a uma terceira são perpendiculares entre si.</li>
+<li>Se dois planos são perpendiculares, então toda reta de um deles é perpendicular ao outro.</li>
+</ol></div>
+<ol class="alt"><li>apenas a II e a III são verdadeiras.</li><li>apenas a II, a III e a IV são verdadeiras.</li><li>apenas a I e a IV são falsas.</li><li>apenas a IV e a V são falsas.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-1.750 -2.820 8.370 4.049" width="760" height="368" role="img" style="--u:0.01101px" aria-label="Planos perpendiculares"><polygon class="plb" points="0.000,-0.000 6.200,-0.000 6.200,-2.400 0.000,-2.400"/><text class="lbp" x="5.700" y="-2.050">&#946;</text><polygon class="pl" points="-1.330,0.592 4.870,0.592 6.200,-0.000 0.000,-0.000"/><text class="lbp" x="4.536" y="0.518">&#945;</text><line class="ei" x1="0.000" y1="-0.000" x2="6.200" y2="-0.000"/><text class="lb" x="0.250" y="-0.140">i</text><line class="rt" x1="1.600" y1="-0.000" x2="0.412" y2="0.529"/><text class="lbr" x="0.362" y="0.809">a</text><line class="ar" x1="3.400" y1="-0.000" x2="4.112" y2="0.529"/><text class="lb" x="4.212" y="0.749">b</text><line class="hd" x1="1.600" y1="-0.000" x2="1.600" y2="-2.000"/><line class="ang" x1="1.410" y1="0.085" x2="1.810" y2="0.085"/><line class="ang" x1="1.810" y1="0.085" x2="2.000" y2="-0.000"/></svg></figure>
+<p><b>I. Falsa.</b> As retas de α paralelas à interseção são paralelas a β.</p>
+<p><b>II. Verdadeira.</b> Por cada ponto de α passa uma paralela a <i>r</i>: a interseção de α com o
+plano determinado por <i>r</i> e por esse ponto.</p>
+<p><b>III. Verdadeira.</b> Ter uma reta comum sem coincidir é ser secante.</p>
+<p><b>IV. Falsa.</b> No espaço, duas retas perpendiculares a uma terceira podem ser paralelas — duas
+arestas verticais de um paralelepípedo, por exemplo.</p>
+<p><b>V. Falsa.</b> Só são perpendiculares a β as retas de α perpendiculares à interseção, como
+<i>a</i>; <i>b</i> não é.</p>
+<p>Verdadeiras: <b>II e III</b>.</p>
+<p class="gab">Resposta: <b>(a)</b> apenas a II e a III são verdadeiras.</p></div></details>
+</article><article class="q" id="q4">
+<div class="hd"><span class="num">4</span><span class="src">AFA</span></div>
+<div class="en"><p>Se a reta <i>r</i> é paralela ao plano α, então</p></div>
+<ol class="alt"><li>todas as retas de α são paralelas a <i>r</i>.</li><li>existem em α retas paralelas e perpendiculares a <i>r</i>.</li><li>a reta <i>r</i> não pode ser comparada com nenhuma reta de α.</li><li>existem em α retas paralelas a <i>r</i> e retas reversas a <i>r</i>.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.420 8.560 2.840" width="760" height="252" role="img" style="--u:0.01126px" aria-label="Reta paralela a um plano"><polygon class="pl" points="0.000,-0.000 6.200,-0.000 7.720,-0.677 1.520,-0.677"/><text class="lbp" x="7.056" y="-0.582">&#945;</text><line class="hd" x1="1.431" y1="-0.370" x2="6.431" y2="-0.370"/><line class="hd" x1="1.431" y1="-1.920" x2="1.431" y2="-0.370"/><line class="hd" x1="6.431" y1="-1.920" x2="6.431" y2="-0.370"/><line class="rt" x1="1.431" y1="-1.920" x2="6.431" y2="-1.920"/><text class="lbr" x="6.571" y="-2.000">r</text><line class="ar" x1="1.083" y1="-0.148" x2="5.633" y2="-0.148"/><text class="lb" x="5.773" y="-0.088">s</text><line class="ar" x1="2.575" y1="-0.635" x2="4.493" y2="-0.063"/><text class="lb" x="2.375" y="-0.715">t</text></svg></figure>
+<p>Nenhuma reta de α corta <i>r</i>, porque <i>r</i> ∩ α = ∅.</p>
+<p>Paralelas existem: a interseção de α com qualquer plano que contenha <i>r</i> é uma reta que não
+encontra <i>r</i> e é coplanar com ela, logo paralela. As demais retas de α são reversas a <i>r</i>.</p>
+<p>A letra (b) troca perpendicular por ortogonal: as retas de α ortogonais a <i>r</i> são reversas a
+ela, não a cortam.</p>
+<p class="gab">Resposta: <b>(d)</b> existem em α retas paralelas a <i>r</i> e retas reversas a <i>r</i>.</p></div></details>
+</article><article class="q" id="q5">
+<div class="hd"><span class="num">5</span><span class="src">AFA</span></div>
+<div class="en"><p>Qual das afirmações abaixo é verdadeira?</p></div>
+<ol class="alt"><li>Por uma reta dada pode-se conduzir um plano paralelo a um plano dado.</li><li>Se uma reta é paralela a dois planos, então esses planos são paralelos.</li><li>Por um ponto qualquer é possível traçar uma reta que intercepta duas retas reversas dadas.</li><li>Se duas retas concorrentes de um plano são, respectivamente, paralelas a duas retas de outro plano, então estes planos são paralelos.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.955 8.265 3.375" width="760" height="310" role="img" style="--u:0.01088px" aria-label="Teorema do paralelismo entre planos"><polygon class="plq" points="0.000,-1.900 6.000,-1.900 7.425,-2.535 1.425,-2.535"/><text class="lbp" x="6.685" y="-2.450">&#945;</text><polygon class="pl" points="0.000,-0.000 6.000,-0.000 7.425,-0.635 1.425,-0.635"/><text class="lbp" x="6.685" y="-0.550">&#946;</text><line class="rt" x1="0.985" y1="-2.027" x2="5.883" y2="-2.471"/><text class="lbr" x="6.003" y="-2.251">r</text><line class="rt" x1="2.430" y1="-2.492" x2="5.138" y2="-2.006"/><text class="lbr" x="5.258" y="-1.906">s</text><line class="ar" x1="0.985" y1="-0.127" x2="5.883" y2="-0.571"/><text class="lb" x="6.003" y="-0.311">r&#8242;</text><line class="ar" x1="2.430" y1="-0.592" x2="5.138" y2="-0.106"/><text class="lb" x="5.258" y="-0.006">s&#8242;</text><line class="hd" x1="0.000" y1="-0.000" x2="0.000" y2="-1.900"/><line class="hd" x1="6.000" y1="-0.000" x2="6.000" y2="-1.900"/><line class="hd" x1="7.425" y1="-0.635" x2="7.425" y2="-2.535"/><line class="hd" x1="1.425" y1="-0.635" x2="1.425" y2="-2.535"/></svg></figure>
+<p><b>(a) Falsa.</b> Se a reta dada corta o plano dado, nenhum plano que a contenha pode ser paralelo a
+ele: esse plano já tem em comum com ele o ponto de interseção. A afirmação só valeria com a reta
+paralela ao plano, ou contida nele.</p>
+<p><b>(b) Falsa.</b> Tome dois planos secantes e uma reta paralela à reta de interseção, fora dos dois.
+Ela é paralela aos dois planos, que não são paralelos entre si.</p>
+<p><b>(c) Falsa.</b> Dadas <i>r</i> e <i>s</i> reversas e um ponto <i>P</i> fora delas, a única candidata
+é a reta <i>m</i> = (<i>P</i>, <i>r</i>) ∩ (<i>P</i>, <i>s</i>), interseção dos dois planos que <i>P</i>
+determina com cada uma. Para a maioria dos pontos essa reta resolve, mas quando <i>m</i> sai paralela a
+<i>r</i> ou a <i>s</i> não existe reta alguma por <i>P</i> apoiada nas duas. O <i>qualquer ponto</i>
+derruba a afirmação.</p>
+<p><b>(d) Verdadeira.</b> É o teorema do paralelismo entre planos, na forma em que ele costuma ser
+enunciado: se <i>r</i> e <i>s</i> são concorrentes em α e paralelas, respectivamente, a <i>r</i>′ e
+<i>s</i>′ de β, então α ∥ β. De fato <i>r</i> e <i>s</i> são paralelas a β, e duas concorrentes de α
+paralelas a β obrigam α ∥ β.</p>
+<p class="gab">Resposta: <b>(d)</b> Se duas retas concorrentes de um plano são, respectivamente, paralelas a duas retas de outro plano, então estes planos são paralelos.</p></div></details>
+</article><article class="q" id="q6">
+<div class="hd"><span class="num">6</span><span class="src">ITA 1987</span></div>
+<div class="en"><p>Qual das afirmações abaixo é verdadeira?</p></div>
+<ol class="alt"><li>Três pontos, distintos dois a dois, determinam um plano.</li><li>Um ponto e uma reta determinam um plano.</li><li>Se dois planos distintos têm um ponto em comum, tal ponto é único.</li><li>Se uma reta é paralela a um plano e não está contida neste plano, então ela é paralela a qualquer reta desse plano.</li><li>Se α é o plano determinado por duas retas concorrentes <i>r</i> e <i>s</i>, então toda reta <i>m</i> desse plano que é paralela a <i>r</i> não será paralela a <i>s</i>.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.420 8.560 2.840" width="760" height="252" role="img" style="--u:0.01126px" aria-label="Reta paralela a um plano"><polygon class="pl" points="0.000,-0.000 6.200,-0.000 7.720,-0.677 1.520,-0.677"/><text class="lbp" x="7.056" y="-0.582">&#945;</text><line class="hd" x1="1.431" y1="-0.370" x2="6.431" y2="-0.370"/><line class="hd" x1="1.431" y1="-1.920" x2="1.431" y2="-0.370"/><line class="hd" x1="6.431" y1="-1.920" x2="6.431" y2="-0.370"/><line class="rt" x1="1.431" y1="-1.920" x2="6.431" y2="-1.920"/><text class="lbr" x="6.571" y="-2.000">r</text><line class="ar" x1="1.083" y1="-0.148" x2="5.633" y2="-0.148"/><text class="lb" x="5.773" y="-0.088">s</text><line class="ar" x1="2.575" y1="-0.635" x2="4.493" y2="-0.063"/><text class="lb" x="2.375" y="-0.715">t</text></svg></figure>
+<p><b>(a) Falsa.</b> Três pontos colineares não determinam plano.</p>
+<p><b>(b) Falsa.</b> O ponto tem de ser exterior à reta.</p>
+<p><b>(c) Falsa.</b> Dois planos distintos com um ponto comum têm em comum uma reta inteira.</p>
+<p><b>(d) Falsa.</b> Uma reta paralela ao plano é paralela a umas retas dele e reversa a todas as
+outras.</p>
+<p><b>(e) Verdadeira.</b> Se <i>m</i> fosse paralela a <i>r</i> e a <i>s</i>, a transitividade daria
+<i>r</i> ∥ <i>s</i>, contra o fato de serem concorrentes.</p>
+<p class="gab">Resposta: <b>(e)</b> Se α é o plano determinado por duas retas concorrentes <i>r</i> e <i>s</i>, então toda reta <i>m</i> desse plano que é paralela a <i>r</i> não será paralela a <i>s</i>.</p></div></details>
+</article><article class="q" id="q7">
+<div class="hd"><span class="num">7</span><span class="src">FUVEST</span></div>
+<div class="en"><p>Dados um plano α e uma reta <i>r</i>, podemos afirmar que</p></div>
+<ol class="alt"><li>existe um plano β que contém <i>r</i> e é perpendicular a α.</li><li>existe um único plano β que contém <i>r</i> e é perpendicular a α.</li><li>existe um plano β que contém <i>r</i> e é paralelo a α.</li><li>existe um único plano β que contém <i>r</i> e é paralelo a α.</li><li>qualquer plano β que contém <i>r</i> intercepta o plano α.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.732 8.760 3.152" width="760" height="273" role="img" style="--u:0.01153px" aria-label="Plano que contem r e e perpendicular a alfa"><polygon class="pl" points="0.000,-0.000 6.400,-0.000 7.920,-0.677 1.520,-0.677"/><text class="lbp" x="7.130" y="-0.592">&#945;</text><polygon class="plq" points="1.575,-2.312 6.040,-1.058 6.040,-0.508 1.575,-0.212"/><line class="rt" x1="1.575" y1="-2.312" x2="6.040" y2="-1.058"/><text class="lbr" x="6.180" y="-1.098">r</text><line class="pj" x1="1.575" y1="-0.212" x2="6.040" y2="-0.508"/><line class="hd" x1="3.808" y1="-1.685" x2="3.808" y2="-0.360"/><text class="lb" x="3.908" y="-0.660">t</text><circle class="vt" cx="3.808" cy="-1.685" r="0.055"/><text class="lb" x="3.648" y="-1.785">P</text><text class="lbp" x="2.641" y="-1.236">&#946;</text><line class="ang" x1="3.808" y1="-0.660" x2="4.228" y2="-0.660"/><line class="ang" x1="4.228" y1="-0.660" x2="4.228" y2="-0.360"/></svg></figure>
+<p><b>A construção.</b> Tome um ponto <i>P</i> sobre <i>r</i> e trace por ele a reta <i>t</i>
+perpendicular a α. As retas <i>r</i> e <i>t</i> passam por <i>P</i>; se forem distintas, determinam um
+plano β. Esse β contém <i>r</i>, e contém uma reta perpendicular a α — pelo critério de
+perpendicularidade entre planos, β ⊥ α. A existência está garantida em qualquer caso, e é o que diz
+<b>(a)</b>.</p>
+<p><b>(b) Falsa.</b> O plano é único enquanto <i>r</i> não é perpendicular a α. Se <i>r</i> ⊥ α, então
+<i>todos</i> os planos que contêm <i>r</i> são perpendiculares a α, e são infinitos.</p>
+<p><b>(c) e (d) Falsas.</b> Se <i>r</i> corta α, nenhum plano que a contenha é paralelo a α.</p>
+<p><b>(e) Falsa.</b> Se <i>r</i> ∥ α, o plano que passa por <i>r</i> e é paralelo a α não intercepta
+α.</p>
+<p class="gab">Resposta: <b>(a)</b> existe um plano β que contém <i>r</i> e é perpendicular a α.</p></div></details>
+</article><article class="q" id="q8">
+<div class="hd"><span class="num">8</span></div>
+<div class="en"><p>Na cadeira representada na figura, o encosto é perpendicular ao assento e este é paralelo ao chão.</p>
+<figure class="enun"><svg viewBox="-1.220 -4.570 6.490 5.540" width="760" height="649" role="img" style="--u:0.00854px" aria-label="Cadeira: encosto perpendicular ao assento"><polygon class="plc" points="-0.800,0.550 3.600,0.550 4.850,-0.480 0.450,-0.480"/><polygon class="plq" points="1.050,-2.250 3.850,-2.250 3.850,-4.050 1.050,-4.050"/><line class="pe" x1="1.050" y1="-2.250" x2="1.050" y2="-0.420"/><line class="pe" x1="3.850" y1="-2.250" x2="3.850" y2="-0.420"/><polygon class="plg" points="0.000,-1.350 2.800,-1.350 3.850,-2.250 1.050,-2.250"/><line class="pe" x1="0.000" y1="-1.350" x2="0.000" y2="0.450"/><line class="pe" x1="2.800" y1="-1.350" x2="2.800" y2="0.450"/><line class="ang" x1="1.300" y1="-2.250" x2="1.300" y2="-2.500"/><line class="ang" x1="1.300" y1="-2.500" x2="1.050" y2="-2.500"/><circle class="vt" cx="0.000" cy="-1.350" r="0.07"/><text class="lb" x="-0.260" y="-1.090">H</text><circle class="vt" cx="2.800" cy="-1.350" r="0.07"/><text class="lb" x="2.940" y="-1.090">G</text><circle class="vt" cx="1.050" cy="-2.250" r="0.07"/><text class="lb" x="0.790" y="-2.190">E</text><circle class="vt" cx="3.850" cy="-2.250" r="0.07"/><text class="lb" x="3.990" y="-2.190">F</text><circle class="vt" cx="1.050" cy="-4.050" r="0.07"/><text class="lb" x="0.790" y="-4.150">J</text><circle class="vt" cx="3.850" cy="-4.050" r="0.07"/><text class="lb" x="3.990" y="-4.150">I</text><circle class="vt" cx="1.050" cy="-0.420" r="0.07"/><text class="lb" x="0.790" y="-0.340">N</text></svg></figure></div>
+<ol class="alt"><li>Os planos <i>EFI</i> e <i>HGF</i> são paralelos.</li><li><i>HG</i> é um segmento de reta comum aos planos <i>EFI</i> e <i>EFH</i>.</li><li>Os planos <i>HIJ</i> e <i>EGN</i> são paralelos.</li><li><i>EF</i> é um segmento de reta comum aos planos <i>EFI</i> e <i>EHG</i>.</li><li>As retas <i>IJ</i> e <i>EF</i> são reversas.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol">
+<p>Três planos organizam a figura: o assento, que é o plano <i>EFGH</i>; o encosto, que é o plano
+<i>EFIJ</i>; e o chão, paralelo ao assento.</p>
+<p><b>(d) Verdadeira.</b> O plano <i>EFI</i> é o encosto e o plano <i>EHG</i> é o assento. Os dois contêm
+<i>E</i> e <i>F</i>, logo contêm a reta <i>EF</i>; e dois planos distintos têm em comum uma única reta.
+A reta comum é <i>EF</i>.</p>
+<p><b>(a) Falsa.</b> <i>EFI</i> é o encosto e <i>HGF</i> é o assento: eles têm <i>EF</i> em comum, e o
+enunciado diz que são perpendiculares. Planos com ponto comum não são paralelos.</p>
+<p><b>(b) Falsa.</b> <i>HG</i> está no assento e não no encosto. A reta comum aos dois é <i>EF</i>.</p>
+<p><b>(c) Falsa.</b> A perna <i>NE</i> é vertical e o montante <i>EJ</i> do encosto também, os dois
+apoiados em <i>E</i>: os pontos <i>N</i>, <i>E</i> e <i>J</i> estão numa mesma reta. Essa reta está no
+plano <i>EGN</i>, logo <i>J</i> pertence a <i>EGN</i>. Como <i>J</i> também está em <i>HIJ</i>, os dois
+planos têm um ponto comum e são secantes.</p>
+<p><b>(e) Falsa.</b> <i>IJ</i> e <i>EF</i> são lados opostos do retângulo <i>EFIJ</i> do encosto: são
+paralelas, não reversas.</p>
+<p class="gab">Resposta: <b>(d)</b> <i>EF</i> é um segmento de reta comum aos planos <i>EFI</i> e <i>EHG</i>.</p></div></details>
+</article><article class="q" id="q9">
+<div class="hd"><span class="num">9</span><span class="src">EsPCEx</span></div>
+<div class="en"><p>O sólido abaixo é formado pela justaposição de um bloco retangular e um prisma
+triangular reto, com uma face em comum.</p>
+<figure class="enun"><svg viewBox="-0.680 -4.630 5.290 5.350" width="760" height="769" role="img" style="--u:0.00696px" aria-label="Bloco retangular com prisma triangular"><polygon class="plq" points="0.000,-0.000 3.000,-0.000 3.000,-2.000 0.000,-2.000"/><polygon class="plq2" points="3.000,-0.000 4.050,-0.680 4.050,-2.680 3.000,-2.000"/><polygon class="plg" points="0.000,-2.000 1.500,-3.450 2.550,-4.130 1.050,-2.680"/><polygon class="plg2" points="3.000,-2.000 1.500,-3.450 2.550,-4.130 4.050,-2.680"/><polygon class="plg3" points="0.000,-2.000 1.500,-3.450 3.000,-2.000"/><line class="hd" x1="1.050" y1="-0.680" x2="0.000" y2="-0.000"/><line class="hd" x1="1.050" y1="-0.680" x2="4.050" y2="-0.680"/><line class="hd" x1="1.050" y1="-0.680" x2="1.050" y2="-2.680"/><line class="ar2" x1="0.000" y1="-0.000" x2="3.000" y2="-0.000"/><line class="ar2" x1="3.000" y1="-0.000" x2="4.050" y2="-0.680"/><line class="ar2" x1="4.050" y1="-0.680" x2="4.050" y2="-2.680"/><line class="ar2" x1="4.050" y1="-2.680" x2="1.050" y2="-2.680"/><line class="ar2" x1="1.050" y1="-2.680" x2="0.000" y2="-2.000"/><line class="ar2" x1="0.000" y1="-2.000" x2="0.000" y2="-0.000"/><line class="ar2" x1="3.000" y1="-0.000" x2="3.000" y2="-2.000"/><line class="ar2" x1="3.000" y1="-2.000" x2="4.050" y2="-2.680"/><line class="ar2" x1="0.000" y1="-2.000" x2="3.000" y2="-2.000"/><line class="ar2" x1="0.000" y1="-2.000" x2="1.500" y2="-3.450"/><line class="ar2" x1="1.500" y1="-3.450" x2="3.000" y2="-2.000"/><line class="ar2" x1="1.500" y1="-3.450" x2="2.550" y2="-4.130"/><line class="ar2" x1="2.550" y1="-4.130" x2="4.050" y2="-2.680"/><line class="ar2" x1="2.550" y1="-4.130" x2="1.050" y2="-2.680"/><circle class="vt" cx="0.000" cy="-0.000" r="0.07"/><text class="lb" x="-0.260" y="0.260">A</text><circle class="vt" cx="1.050" cy="-0.680" r="0.07"/><text class="lb" x="0.770" y="-0.620">B</text><circle class="vt" cx="4.050" cy="-0.680" r="0.07"/><text class="lb" x="4.190" y="-0.600">C</text><circle class="vt" cx="3.000" cy="-0.000" r="0.07"/><text class="lb" x="3.000" y="0.300">D</text><circle class="vt" cx="0.000" cy="-2.000" r="0.07"/><text class="lb" x="-0.260" y="-1.960">E</text><circle class="vt" cx="1.050" cy="-2.680" r="0.07"/><text class="lb" x="0.750" y="-2.820">F</text><circle class="vt" cx="4.050" cy="-2.680" r="0.07"/><text class="lb" x="4.190" y="-2.620">G</text><circle class="vt" cx="3.000" cy="-2.000" r="0.07"/><text class="lb" x="3.160" y="-1.740">H</text><circle class="vt" cx="1.500" cy="-3.450" r="0.07"/><text class="lb" x="1.440" y="-3.590">K</text><circle class="vt" cx="2.550" cy="-4.130" r="0.07"/><text class="lb" x="2.690" y="-4.210">L</text></svg></figure>
+<p>As posições relativas dos pares de retas <i>AH</i> e <i>DE</i>; <i>AD</i> e <i>KL</i>;
+<i>EF</i> e <i>HG</i> são, respectivamente,</p></div>
+<ol class="alt"><li>concorrentes; reversas; reversas.</li><li>reversas; reversas; paralelas.</li><li>concorrentes; reversas; paralelas.</li><li>reversas; concorrentes; reversas.</li><li>concorrentes; concorrentes; reversas.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol">
+<p><i>AH</i> e <i>DE</i> são as diagonais do retângulo <i>ADHE</i>: <b>concorrentes</b>.</p>
+<p><i>AD</i> é aresta da base, na direção da largura, e <i>KL</i> é a cumeeira, na direção da
+profundidade: não se cortam e não são paralelas, logo <b>reversas</b>.</p>
+<p><i>EF</i> e <i>HG</i> são lados opostos do retângulo superior do bloco: <b>paralelas</b>.</p>
+<p class="gab">Resposta: <b>(c)</b> concorrentes; reversas; paralelas.</p></div></details>
+</article><article class="q" id="q10">
+<div class="hd"><span class="num">10</span><span class="src">UECE</span></div>
+<div class="en"><p>O número de planos que contêm mais de dois dos oito vértices de um paralelepípedo
+retângulo é</p></div>
+<ol class="alt"><li>16</li><li>10</li><li>12</li><li>20</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -3.570 4.835 4.350" width="430" height="387" role="img" style="--u:0.01124px" aria-label="Cubo: a aresta r e as quatro arestas reversas a ela"><polygon class="plg" points="0.000,-2.600 2.600,-2.600 3.835,-3.150 1.235,-3.150"/><polygon class="plg" points="0.000,-0.000 2.600,-0.000 2.600,-2.600 0.000,-2.600"/><polygon class="plg" points="2.600,-0.000 3.835,-0.550 3.835,-3.150 2.600,-2.600"/><line class="rt" x1="0.000" y1="-0.000" x2="2.600" y2="-0.000"/><line class="hd" x1="0.000" y1="-0.000" x2="1.235" y2="-0.550"/><line class="ar" x1="0.000" y1="-0.000" x2="0.000" y2="-2.600"/><line class="ar" x1="2.600" y1="-0.000" x2="3.835" y2="-0.550"/><line class="ar" x1="2.600" y1="-0.000" x2="2.600" y2="-2.600"/><line class="hd" x1="3.835" y1="-0.550" x2="1.235" y2="-0.550"/><line class="pj" x1="3.835" y1="-0.550" x2="3.835" y2="-3.150"/><line class="pjd" x1="1.235" y1="-0.550" x2="1.235" y2="-3.150"/><line class="ar" x1="0.000" y1="-2.600" x2="2.600" y2="-2.600"/><line class="pj" x1="0.000" y1="-2.600" x2="1.235" y2="-3.150"/><line class="pj" x1="2.600" y1="-2.600" x2="3.835" y2="-3.150"/><line class="ar" x1="3.835" y1="-3.150" x2="1.235" y2="-3.150"/><text class="lbr" x="1.250" y="0.360">r</text><text class="lbn" x="3.995" y="-1.750">1</text><text class="lbn" x="1.395" y="-1.750">2</text><text class="lbn" x="0.778" y="-2.775">3</text><text class="lbn" x="3.378" y="-2.775">4</text></svg></figure>
+<p>Um plano fica determinado por três pontos não colineares, e os vértices de um paralelepípedo nunca
+são três a três colineares. Trata-se, então, de contar os planos que contêm pelo menos três dos oito
+vértices, sem contar o mesmo plano duas vezes.</p>
+<p><b>As faces: 6 planos.</b> Cada face contém quatro vértices.</p>
+<p><b>Os planos diagonais: 6 planos.</b> Cada um passa por duas arestas opostas do sólido e também
+contém quatro vértices. As doze arestas se repartem em três direções, com quatro arestas paralelas em
+cada direção; em cada grupo de quatro há dois pares de arestas diagonalmente opostas, o que dá
+3 × 2 = 6 planos.</p>
+<p><b>Os planos de canto: 8 planos.</b> Escolha um vértice. Os seus três vizinhos determinam um plano
+que corta aquele canto, e nesse plano não há nenhum outro vértice do sólido. Cada vértice dá um plano
+diferente, e são oito vértices.</p>
+<p>Qualquer trio de vértices cai num desses três tipos, de modo que a contagem está completa:</p>
+<p class="dest">6 + 6 + 8 = 20</p>
+<p>Alternativa <b>(d)</b>.</p>
+<p class="gab">Resposta: <b>(d)</b> 20</p></div></details>
+</article><article class="q" id="q11">
+<div class="hd"><span class="num">11</span><span class="src">EsPCEx</span></div>
+<div class="en"><p>Dado um cubo, o número de pares distintos de retas reversas que podemos traçar,
+de tal forma que cada reta contenha uma aresta desse cubo, é igual a</p></div>
+<ol class="alt"><li>24</li><li>30</li><li>36</li><li>42</li><li>48</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -3.570 4.835 4.350" width="430" height="387" role="img" style="--u:0.01124px" aria-label="Cubo: a aresta r e as quatro arestas reversas a ela"><polygon class="plg" points="0.000,-2.600 2.600,-2.600 3.835,-3.150 1.235,-3.150"/><polygon class="plg" points="0.000,-0.000 2.600,-0.000 2.600,-2.600 0.000,-2.600"/><polygon class="plg" points="2.600,-0.000 3.835,-0.550 3.835,-3.150 2.600,-2.600"/><line class="rt" x1="0.000" y1="-0.000" x2="2.600" y2="-0.000"/><line class="hd" x1="0.000" y1="-0.000" x2="1.235" y2="-0.550"/><line class="ar" x1="0.000" y1="-0.000" x2="0.000" y2="-2.600"/><line class="ar" x1="2.600" y1="-0.000" x2="3.835" y2="-0.550"/><line class="ar" x1="2.600" y1="-0.000" x2="2.600" y2="-2.600"/><line class="hd" x1="3.835" y1="-0.550" x2="1.235" y2="-0.550"/><line class="pj" x1="3.835" y1="-0.550" x2="3.835" y2="-3.150"/><line class="pjd" x1="1.235" y1="-0.550" x2="1.235" y2="-3.150"/><line class="ar" x1="0.000" y1="-2.600" x2="2.600" y2="-2.600"/><line class="pj" x1="0.000" y1="-2.600" x2="1.235" y2="-3.150"/><line class="pj" x1="2.600" y1="-2.600" x2="3.835" y2="-3.150"/><line class="ar" x1="3.835" y1="-3.150" x2="1.235" y2="-3.150"/><text class="lbr" x="1.250" y="0.360">r</text><text class="lbn" x="3.995" y="-1.750">1</text><text class="lbn" x="1.395" y="-1.750">2</text><text class="lbn" x="0.778" y="-2.775">3</text><text class="lbn" x="3.378" y="-2.775">4</text></svg></figure>
+<p>As doze arestas do cubo se repartem em <b>três direções</b>, com quatro arestas em cada uma.
+Fixe uma aresta <i>r</i> e separe as outras onze em três grupos.</p>
+<p><b>As paralelas.</b> As outras três arestas da direção de <i>r</i> são paralelas a ela, e retas
+paralelas são coplanares.</p>
+<p><b>As concorrentes.</b> Em cada extremo de <i>r</i> chegam duas arestas, o que dá quatro arestas
+que encontram <i>r</i>.</p>
+<p><b>As reversas.</b> Sobram <i>11 − 3 − 4 = 4</i> arestas. Nenhuma delas é paralela a <i>r</i> nem
+a encontra, logo as quatro são reversas a <i>r</i> — são as numeradas na figura.</p>
+<p>Isso vale para qualquer aresta tomada como <i>r</i>. Contando pelos extremos, cada par
+{aresta, reversa} aparece duas vezes, uma por cada aresta do par:</p>
+<p class="dest">N = <sup>12 · 4</sup>⁄<sub>2</sub> = 24.</p>
+<p class="gab">Resposta: <b>(a)</b> 24</p></div></details>
+</article><article class="q" id="q12">
+<div class="hd"><span class="num">12</span><span class="src">UFMS</span></div>
+<div class="en"><p>Considere uma pirâmide de base hexagonal regular.
+A quantidade de pares de arestas reversas é</p></div>
+<ol class="alt"><li>maior que 24.</li><li>igual a 24.</li><li>maior que 12 e menor que 24.</li><li>igual a 12.</li><li>menor que 12.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-2.351 -3.600 4.702 4.678" width="430" height="428" role="img" style="--u:0.01094px" aria-label="Piramide hexagonal: uma aresta da base e as quatro laterais reversas a ela"><polygon class="plg" points="-1.931,0.185 -0.831,0.370 0.000,-3.000"/><polygon class="plg" points="-0.831,0.370 1.100,0.185 0.000,-3.000"/><polygon class="plg" points="1.100,0.185 1.931,-0.185 0.000,-3.000"/><line class="hd" x1="1.931" y1="-0.185" x2="0.831" y2="-0.370"/><line class="ar" x1="1.931" y1="-0.185" x2="1.100" y2="0.185"/><line class="pj" x1="1.931" y1="-0.185" x2="0.000" y2="-3.000"/><line class="hd" x1="0.831" y1="-0.370" x2="-1.100" y2="-0.185"/><line class="pjd" x1="0.831" y1="-0.370" x2="0.000" y2="-3.000"/><line class="hd" x1="-1.100" y1="-0.185" x2="-1.931" y2="0.185"/><line class="pjd" x1="-1.100" y1="-0.185" x2="0.000" y2="-3.000"/><line class="ar" x1="-1.931" y1="0.185" x2="-0.831" y2="0.370"/><line class="pj" x1="-1.931" y1="0.185" x2="0.000" y2="-3.000"/><line class="rt" x1="-0.831" y1="0.370" x2="1.100" y2="0.185"/><line class="ar" x1="-0.831" y1="0.370" x2="0.000" y2="-3.000"/><line class="ar" x1="1.100" y1="0.185" x2="0.000" y2="-3.000"/><text class="lbr" x="0.084" y="0.658">r</text><text class="lb" x="-0.060" y="-3.180">V</text><text class="lbn" x="1.146" y="-1.533">1</text><text class="lbn" x="0.596" y="-1.625">2</text><text class="lbn" x="-0.370" y="-1.533">3</text><text class="lbn" x="-0.786" y="-1.347">4</text></svg></figure>
+<p>A pirâmide tem <b>doze arestas</b>: seis da base e seis laterais. Em vez de testar os
+66 pares, separe-os por tipo.</p>
+<p><b>Base com base.</b> As seis arestas da base estão todas no plano da base, e retas coplanares
+nunca são reversas. Nenhum par aqui.</p>
+<p><b>Lateral com lateral.</b> As seis arestas laterais passam todas pelo vértice <i>V</i>: são
+concorrentes duas a duas. Nenhum par aqui.</p>
+<p><b>Base com lateral.</b> Fixe uma aresta <i>r</i> da base. As duas arestas laterais que saem dos
+extremos de <i>r</i> a encontram. Cada uma das outras quatro não toca <i>r</i>, porque fura o plano
+da base só no seu próprio vértice, que não está em <i>r</i>; e não é paralela a <i>r</i>, porque não
+está no plano da base. Logo as quatro são reversas a <i>r</i>.</p>
+<p>Como as seis arestas da base dão cada uma quatro pares, e nenhum par se repete (num par há
+sempre exatamente uma aresta da base):</p>
+<p class="dest">N = 6 · 4 = 24.</p>
+<p class="gab">Resposta: <b>(b)</b> igual a 24.</p></div></details>
+</article><article class="q" id="q13">
+<div class="hd"><span class="num">13</span></div>
+<div class="en"><p>Quantos pares de retas reversas são formados pelas retas suportes das arestas de um
+tetraedro?</p></div>
+<ol class="alt"><li>Um par.</li><li>Dois pares.</li><li>Três pares.</li><li>Quatro pares.</li><li>Cinco pares.</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.640 -3.539 4.600 4.139" width="400" height="360" role="img" style="--u:0.01150px" aria-label="Tetraedro: o par de arestas opostas AB e CD"><polygon class="plg" points="0.000,-0.000 3.400,-0.000 2.056,-2.959"/><line class="rt" x1="0.000" y1="-0.000" x2="3.400" y2="-0.000"/><line class="hd" x1="0.000" y1="-0.000" x2="2.650" y2="-0.423"/><line class="ar" x1="0.000" y1="-0.000" x2="2.056" y2="-2.959"/><line class="hd" x1="3.400" y1="-0.000" x2="2.650" y2="-0.423"/><line class="ar" x1="3.400" y1="-0.000" x2="2.056" y2="-2.959"/><line class="rtd" x1="2.650" y1="-0.423" x2="2.056" y2="-2.959"/><circle class="vt" cx="0.000" cy="-0.000" r="0.0331"/><text class="lb" x="-0.220" y="0.180">A</text><circle class="vt" cx="3.400" cy="-0.000" r="0.0331"/><text class="lb" x="3.540" y="0.180">B</text><circle class="vt" cx="2.650" cy="-0.423" r="0.0331"/><text class="lb" x="2.810" y="-0.243">C</text><circle class="vt" cx="2.056" cy="-2.959" r="0.0331"/><text class="lb" x="2.016" y="-3.119">D</text></svg></figure>
+<p>O tetraedro <i>ABCD</i> tem seis arestas. Tome duas delas. Ou têm um vértice em comum, e então
+são concorrentes, ou não têm nenhum, e são o que se chama de <b>arestas opostas</b>.</p>
+<p>Fixada uma aresta, há exatamente uma que não encontra nenhum dos seus dois extremos: a que une os
+outros dois vértices. Os pares de arestas opostas são, portanto,</p>
+<p class="dest"><i>AB</i> e <i>CD</i>, &nbsp; <i>AC</i> e <i>BD</i>, &nbsp; <i>AD</i> e <i>BC</i>.</p>
+<p>Cada um desses pares é de retas reversas: se <i>AB</i> e <i>CD</i> fossem coplanares, os quatro
+vértices estariam num mesmo plano e não haveria tetraedro.</p>
+<p>São <b>três</b> pares.</p>
+<p class="gab">Resposta: <b>(c)</b> Três pares.</p></div></details>
+</article><article class="q" id="q14">
+<div class="hd"><span class="num">14</span></div>
+<div class="en"><p>Entre todas as retas suportes das arestas de um certo cubo, considere duas,
+<i>r</i> e <i>s</i>, reversas. Seja <i>t</i> a perpendicular comum a <i>r</i> e <i>s</i>. Então</p></div>
+<ol class="alt"><li><i>t</i> é a reta suporte de uma das diagonais de uma das faces do cubo.</li><li><i>t</i> é a reta suporte de uma das diagonais do cubo.</li><li><i>t</i> é a reta suporte de uma das arestas do cubo.</li><li><i>t</i> é a reta que passa pelos pontos médios das arestas contidas em <i>r</i> e <i>s</i>.</li><li><i>t</i> é perpendicular a duas faces do cubo, por seus pontos médios.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -3.570 4.835 4.350" width="430" height="387" role="img" style="--u:0.01124px" aria-label="Duas arestas reversas do cubo e a perpendicular comum"><polygon class="plg" points="0.000,-2.600 2.600,-2.600 3.835,-3.150 1.235,-3.150"/><polygon class="plg" points="0.000,-0.000 2.600,-0.000 2.600,-2.600 0.000,-2.600"/><polygon class="plg" points="2.600,-0.000 3.835,-0.550 3.835,-3.150 2.600,-2.600"/><line class="rt" x1="0.000" y1="-0.000" x2="2.600" y2="-0.000"/><line class="hd" x1="0.000" y1="-0.000" x2="1.235" y2="-0.550"/><line class="ar" x1="0.000" y1="-0.000" x2="0.000" y2="-2.600"/><line class="pj" x1="2.600" y1="-0.000" x2="3.835" y2="-0.550"/><line class="ar" x1="2.600" y1="-0.000" x2="2.600" y2="-2.600"/><line class="hd" x1="3.835" y1="-0.550" x2="1.235" y2="-0.550"/><line class="rt" x1="3.835" y1="-0.550" x2="3.835" y2="-3.150"/><line class="hd" x1="1.235" y1="-0.550" x2="1.235" y2="-3.150"/><line class="ar" x1="0.000" y1="-2.600" x2="2.600" y2="-2.600"/><line class="ar" x1="0.000" y1="-2.600" x2="1.235" y2="-3.150"/><line class="ar" x1="2.600" y1="-2.600" x2="3.835" y2="-3.150"/><line class="ar" x1="3.835" y1="-3.150" x2="1.235" y2="-3.150"/><text class="lbr" x="1.250" y="0.360">r</text><text class="lbr" x="3.995" y="-1.830">s</text><text class="lbp" x="3.278" y="0.065">t</text><line class="ang" x1="2.260" y1="-0.000" x2="2.422" y2="-0.072"/><line class="ang" x1="2.422" y1="-0.072" x2="2.762" y2="-0.072"/><line class="ang" x1="3.674" y1="-0.478" x2="3.674" y2="-0.818"/><line class="ang" x1="3.674" y1="-0.818" x2="3.835" y2="-0.890"/></svg></figure>
+<p>Ponha o cubo com um vértice na origem e arestas sobre os eixos. Como <i>r</i> e <i>s</i> são
+reversas, elas não são paralelas: suas direções são duas das três direções das arestas, digamos a
+dos <i>x</i> e a dos <i>z</i>.</p>
+<p><b>A aresta que liga as duas.</b> Com <i>r</i> contendo a aresta da base que vai de
+<i>(0,0,0)</i> a <i>(a,0,0)</i>, a reta <i>s</i> é vertical e não pode estar nas duas posições que
+tocam <i>r</i>. Em qualquer uma das outras duas, existe uma aresta do cubo que encontra <i>r</i> num
+extremo e <i>s</i> no outro — na figura, a aresta <i>t</i>.</p>
+<p><b>Por que é a perpendicular comum.</b> As três arestas do cubo que chegam a um mesmo vértice são
+perpendiculares duas a duas. Como <i>t</i> encontra <i>r</i> num vértice e <i>s</i> noutro, temos
+<i>t</i> ⟂ <i>r</i> e <i>t</i> ⟂ <i>s</i>, e os dois ângulos retos aparecem na figura.</p>
+<p>Duas retas reversas admitem <b>uma única</b> perpendicular comum. Então essa aresta é a reta
+<i>t</i> do enunciado.</p>
+<p>Vale notar que ela corta <i>r</i> e <i>s</i> em <i>vértices</i>, não em pontos médios — o que
+elimina a alternativa (d).</p>
+<p class="gab">Resposta: <b>(c)</b> <i>t</i> é a reta suporte de uma das arestas do cubo.</p></div></details>
+</article><article class="q" id="q15">
+<div class="hd"><span class="num">15</span><span class="src">Escola Naval</span></div>
+<div class="en"><p>Seja <i>r</i> oblíqua a um plano φ pelo ponto <i>A</i>.
+Considere que <i>s</i> ⊂ φ é a projeção ortogonal de <i>r</i> sobre φ e que <i>t</i> ⊂ φ passa por
+<i>A</i>. Se θ é o ângulo entre <i>r</i> e <i>s</i>, e β é o ângulo entre <i>r</i> e <i>t</i>,
+então</p></div>
+<ol class="alt"><li>θ &lt; β</li><li>θ = β</li><li>β &lt; θ</li><li>θ = 2β</li><li>2β &lt; θ</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -2.902 9.750 3.491" width="580" height="208" role="img" style="--u:0.01681px" aria-label="O angulo da obliqua com a projecao e o menor de todos"><polygon class="pl" points="0.000,-0.000 7.200,-0.000 8.910,-0.761 1.710,-0.761"/><text class="lbp" x="8.220" y="-0.677">&#966;</text><line class="hd" x1="6.803" y1="-2.302" x2="6.803" y2="-0.402"/><line class="pj" x1="1.903" y1="-0.402" x2="6.803" y2="-0.402"/><line class="ar" x1="1.903" y1="-0.402" x2="6.448" y2="-0.021"/><line class="hd" x1="6.803" y1="-2.302" x2="5.614" y2="-0.091"/><line class="hd" x1="6.803" y1="-0.402" x2="5.614" y2="-0.091"/><line class="rt" x1="1.903" y1="-0.402" x2="6.803" y2="-2.302"/><line class="ang" x1="6.503" y1="-0.402" x2="6.503" y2="-0.702"/><line class="ang" x1="6.503" y1="-0.702" x2="6.803" y2="-0.702"/><line class="ang" x1="4.798" y1="-0.159" x2="5.059" y2="-0.228"/><line class="ang" x1="5.059" y1="-0.228" x2="5.876" y2="-0.159"/><path class="ang" fill="none" d="M 2.574 -0.662 A 0.72 0.72 0 0 1 2.623 -0.402"/><path class="ang" fill="none" d="M 3.203 -0.402 A 1.3 1.3 0 0 1 3.198 -0.293"/><text class="lbp" x="2.703" y="-0.502">&#952;</text><text class="lbp" x="3.163" y="0.038">&#946;</text><circle class="vt" cx="1.903" cy="-0.402" r="0.0702"/><text class="lb" x="1.643" y="-0.322">A</text><circle class="vt" cx="6.803" cy="-2.302" r="0.0702"/><text class="lb" x="6.843" y="-2.482">P</text><circle class="vt" cx="6.803" cy="-0.402" r="0.0702"/><text class="lbp" x="6.943" y="-0.102">P&#8242;</text><circle class="vt" cx="5.614" cy="-0.091" r="0.0702"/><text class="lb" x="5.754" y="0.169">T</text><text class="lbr" x="4.293" y="-1.592">r</text><text class="lbp" x="4.103" y="-0.062">s</text><text class="lb" x="6.608" y="0.139">t</text></svg></figure>
+<p>Tome <i>P</i> sobre <i>r</i>, fora de φ, e seja <i>P′</i> sua projeção ortogonal em φ. Então
+<i>P′</i> está em <i>s</i>, e o triângulo <i>APP′</i> é retângulo em <i>P′</i>:</p>
+<p class="dest">cos θ = <sup>AP′</sup>⁄<sub>AP</sub>.</p>
+<p>Agora baixe de <i>P</i> a perpendicular à reta <i>t</i>, com pé <i>T</i>. No triângulo retângulo
+<i>APT</i>,</p>
+<p class="dest">cos β = <sup>AT</sup>⁄<sub>AP</sub>.</p>
+<p><b>O teorema das três perpendiculares.</b> Como <i>PP′</i> ⟂ φ e <i>PT</i> ⟂ <i>t</i>, segue que
+<i>P′T</i> ⟂ <i>t</i>. Logo <i>AP′T</i> é retângulo em <i>T</i> e <i>AT</i> é um cateto com
+hipotenusa <i>AP′</i>:</p>
+<p class="dest"><i>AT</i> &lt; <i>AP′</i>.</p>
+<p>Dividindo por <i>AP</i>, vem cos β &lt; cos θ. No intervalo de 0° a 90° o cosseno é decrescente,
+portanto</p>
+<p class="dest">θ &lt; β.</p>
+<p>Isto é exatamente o que diz a definição: entre todas as retas de φ que passam por <i>A</i>, a
+projeção <i>s</i> é a que forma com <i>r</i> o <b>menor</b> ângulo, e por isso θ é chamado de ângulo
+entre a reta e o plano. A igualdade só ocorreria com <i>t</i> = <i>s</i>.</p>
+<p class="gab">Resposta: <b>(a)</b> θ &lt; β</p></div></details>
+</article><article class="q" id="q16">
+<div class="hd"><span class="num">16</span></div>
+<div class="en"><p>Com relação a um plano qualquer fixado, pode-se dizer que</p></div>
+<ol class="alt"><li>a projeção ortogonal de um segmento de reta pode resultar numa semirreta.</li><li>a projeção ortogonal de uma reta sempre resulta numa reta.</li><li>a projeção ortogonal de uma parábola pode resultar num segmento de reta.</li><li>a projeção ortogonal de um triângulo pode resultar num quadrilátero.</li><li>a projeção ortogonal de uma circunferência pode resultar num segmento de reta.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -3.730 8.855 4.150" width="470" height="220" role="img" style="--u:0.01884px" aria-label="Circunferencia num plano perpendicular: a projecao e um segmento"><polygon class="pl" points="0.000,-0.000 6.400,-0.000 8.015,-0.719 1.615,-0.719"/><text class="lbp" x="7.325" y="-0.635">&#945;</text><polygon class="plq" points="1.708,-0.360 6.308,-0.360 6.308,-3.310 1.708,-3.310"/><text class="lbr" x="1.808" y="-3.010">&#946;</text><polygon class="plq2" points="5.158,-1.810 5.153,-1.910 5.140,-2.009 5.118,-2.107 5.088,-2.203 5.050,-2.296 5.004,-2.385 4.950,-2.469 4.889,-2.549 4.821,-2.623 4.747,-2.691 4.667,-2.752 4.583,-2.805 4.494,-2.852 4.401,-2.890 4.305,-2.920 4.207,-2.942 4.108,-2.955 4.008,-2.960 3.907,-2.955 3.808,-2.942 3.710,-2.920 3.614,-2.890 3.522,-2.852 3.433,-2.805 3.348,-2.752 3.268,-2.691 3.194,-2.623 3.127,-2.549 3.066,-2.469 3.012,-2.385 2.965,-2.296 2.927,-2.203 2.897,-2.107 2.875,-2.009 2.862,-1.910 2.858,-1.810 2.862,-1.709 2.875,-1.610 2.897,-1.512 2.927,-1.416 2.965,-1.324 3.012,-1.235 3.066,-1.150 3.127,-1.070 3.194,-0.996 3.268,-0.929 3.348,-0.868 3.433,-0.814 3.522,-0.767 3.614,-0.729 3.710,-0.699 3.808,-0.677 3.907,-0.664 4.008,-0.660 4.108,-0.664 4.207,-0.677 4.305,-0.699 4.401,-0.729 4.494,-0.767 4.583,-0.814 4.667,-0.868 4.747,-0.929 4.821,-0.996 4.889,-1.070 4.950,-1.150 5.004,-1.235 5.050,-1.324 5.088,-1.416 5.118,-1.512 5.140,-1.610 5.153,-1.709"/><line class="pj" x1="2.858" y1="-0.360" x2="5.158" y2="-0.360"/><line class="hd" x1="2.858" y1="-1.810" x2="2.858" y2="-0.360"/><line class="hd" x1="5.158" y1="-1.810" x2="5.158" y2="-0.360"/><circle class="vt" cx="2.858" cy="-0.360" r="0.0638"/><circle class="vt" cx="5.158" cy="-0.360" r="0.0638"/><text class="lbp" x="3.888" y="0.000">2R</text></svg></figure>
+<p>A projeção ortogonal leva pontos em pontos e preserva alinhamento e limitação. Com isso cada
+alternativa se decide em uma linha.</p>
+<p><b>(a) Falsa.</b> O segmento tem dois extremos, e suas imagens são os extremos da projeção. O
+resultado é um segmento, ou um ponto se o segmento for perpendicular ao plano. Nunca uma semirreta,
+que é ilimitada.</p>
+<p><b>(b) Falsa.</b> Se a reta é perpendicular ao plano, todos os seus pontos têm a mesma projeção e
+a imagem é um <i>ponto</i>.</p>
+<p><b>(c) Falsa.</b> A parábola é ilimitada em duas direções, e a projeção de um conjunto ilimitado
+é ilimitada. O resultado pode ser uma parábola, ou uma semirreta quando o plano da parábola é
+perpendicular ao plano de projeção — mas nunca um segmento, que é limitado.</p>
+<p><b>(d) Falsa.</b> A projeção do triângulo é a envoltória convexa das projeções de <i>A</i>,
+<i>B</i> e <i>C</i>: com três pontos só se obtém um triângulo ou um segmento, nunca quatro vértices.</p>
+<p><b>(e) Verdadeira.</b> Coloque a circunferência num plano β perpendicular a α. Cada ponto dela se
+projeta no pé da perpendicular a α, e todos esses pés caem na reta β ∩ α. A imagem é o segmento
+dessa reta determinado pelos dois pontos extremos, de comprimento igual ao diâmetro 2<i>R</i>.</p>
+<p class="gab">Resposta: <b>(e)</b> a projeção ortogonal de uma circunferência pode resultar num segmento de reta.</p></div></details>
+</article><article class="q" id="q17">
+<div class="hd"><span class="num">17</span><span class="src">EN</span></div>
+<div class="en"><p>O lugar geométrico dos pontos do espaço que equidistam de três pontos
+colineares distintos é</p></div>
+<ol class="alt"><li>uma reta.</li><li>um plano.</li><li>uma esfera.</li><li>um ponto.</li><li>vazio.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="0.398 -3.730 5.980 4.150" width="470" height="326" role="img" style="--u:0.01272px" aria-label="Os planos mediadores de AB e BC sao paralelos"><polygon class="plq" points="1.700,-0.000 2.935,-0.550 2.935,-3.150 1.700,-2.600"/><text class="lbr" x="2.835" y="-3.310">&#960;&#8321;</text><polygon class="plq" points="3.500,-0.000 4.735,-0.550 4.735,-3.150 3.500,-2.600"/><text class="lbr" x="4.635" y="-3.310">&#960;&#8322;</text><line class="ar" x1="0.818" y1="-1.575" x2="5.818" y2="-1.575"/><text class="lb" x="5.958" y="-1.475">r</text><circle class="vt" cx="1.418" cy="-1.575" r="0.0431"/><text class="lb" x="1.358" y="-1.815">A</text><circle class="vt" cx="3.218" cy="-1.575" r="0.0431"/><text class="lb" x="3.158" y="-1.815">B</text><circle class="vt" cx="5.018" cy="-1.575" r="0.0431"/><text class="lb" x="4.958" y="-1.815">C</text></svg></figure>
+<p>Sejam <i>A</i>, <i>B</i> e <i>C</i> os três pontos, nessa ordem sobre a reta <i>r</i>.</p>
+<p><b>O plano mediador.</b> O lugar dos pontos do espaço equidistantes de dois pontos <i>X</i> e
+<i>Y</i> é o plano perpendicular a <i>XY</i> pelo seu ponto médio.</p>
+<p>Um ponto do lugar procurado equidista de <i>A</i> e <i>B</i>, logo está no plano mediador π₁ de
+<i>AB</i>; e equidista de <i>B</i> e <i>C</i>, logo está no plano mediador π₂ de <i>BC</i>.</p>
+<p><b>Os dois planos são paralelos.</b> Ambos são perpendiculares à mesma reta <i>r</i> — o que já
+garante π₁ ∥ π₂ — e passam por pontos distintos de <i>r</i>, os pontos médios de <i>AB</i> e de
+<i>BC</i>, que são diferentes porque <i>A</i> ≠ <i>C</i>. São paralelos e distintos.</p>
+<p>Dois planos paralelos distintos não têm ponto comum. O lugar geométrico é <b>vazio</b>.</p>
+<p>A hipótese de colinearidade é o que faz tudo: com <i>A</i>, <i>B</i> e <i>C</i> não colineares os
+dois mediadores se cortariam segundo o eixo da circunferência circunscrita.</p>
+<p class="gab">Resposta: <b>(e)</b> vazio.</p></div></details>
+</article><article class="q" id="q18">
+<div class="hd"><span class="num">18</span><span class="src">EN</span></div>
+<div class="en"><p>Se α é um plano e <i>P</i> é um ponto não pertencente a α, quantos planos
+e quantas retas, respectivamente, contêm <i>P</i> e são perpendiculares a α?</p></div>
+<ol class="alt"><li>1 plano e 1 reta</li><li>infinitos planos e nenhuma reta</li><li>infinitos planos e 1 reta</li><li>nenhum plano e 1 reta</li><li>infinitos planos e infinitas retas</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -4.176 8.655 4.596" width="470" height="250" role="img" style="--u:0.01842px" aria-label="Por P passa uma unica perpendicular a alfa e infinitos planos perpendiculares"><polygon class="pl" points="0.000,-0.000 6.200,-0.000 7.815,-0.719 1.615,-0.719"/><text class="lbp" x="7.125" y="-0.635">&#945;</text><polygon class="plq" points="1.608,-0.360 6.208,-0.360 6.208,-3.460 1.608,-3.460"/><polygon class="plq2" points="3.243,-0.063 4.573,-0.656 4.573,-3.756 3.243,-3.163"/><line class="rt" x1="3.908" y1="-2.860" x2="3.908" y2="-0.360"/><line class="ang" x1="4.228" y1="-0.360" x2="4.380" y2="-0.427"/><line class="ang" x1="4.380" y1="-0.427" x2="4.060" y2="-0.427"/><circle class="vt" cx="3.908" cy="-2.860" r="0.0623"/><text class="lb" x="3.648" y="-2.900">P</text></svg></figure>
+<p><b>A reta.</b> Por um ponto do espaço passa uma, e uma só, reta perpendicular a um plano dado.
+Chame-a de <i>p</i> e seja <i>P′</i> = <i>p</i> ∩ α o pé dessa perpendicular. Há <b>uma</b> reta.</p>
+<p><b>Os planos.</b> Todo plano que contém <i>p</i> é perpendicular a α, pelo critério de
+perpendicularidade entre planos: contém uma reta perpendicular a α. E há infinitos planos pela reta
+<i>p</i> — eles formam o feixe de eixo <i>p</i>.</p>
+<p><b>Não há outros.</b> Se um plano β passa por <i>P</i> e é perpendicular a α, então a
+perpendicular a α tirada de um ponto de β está contida em β. Aplicando isso ao próprio <i>P</i>,
+conclui-se que <i>p</i> ⊂ β. Ou seja, os planos procurados são exatamente os do feixe de eixo
+<i>p</i>.</p>
+<p>São <b>infinitos planos e uma só reta</b>.</p>
+<p class="gab">Resposta: <b>(c)</b> infinitos planos e 1 reta</p></div></details>
+</article><article class="q" id="q19">
+<div class="hd"><span class="num">19</span><span class="src">AFA</span></div>
+<div class="en"><p>Assinale a única alternativa <b>falsa</b>.</p></div>
+<ol class="alt"><li>Se um plano β é perpendicular a um plano α, então existem infinitas retas contidas em β e perpendiculares a α.</li><li>Se α e β são perpendiculares entre si e γ é perpendicular à reta comum a α e β, então <i>r</i> = γ ∩ α e <i>s</i> = γ ∩ β são perpendiculares entre si.</li><li>Se duas retas <i>r</i> e <i>s</i> são reversas, então não existem dois planos α e β, perpendiculares entre si, tais que <i>r</i> ⊂ α e <i>s</i> ⊂ β.</li><li>Duas retas do espaço, paralelas a uma terceira, são paralelas entre si.</li></ol>
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-0.420 -4.277 9.055 4.697" width="520" height="270" role="img" style="--u:0.01741px" aria-label="Planos perpendiculares contendo duas retas reversas"><polygon class="pl" points="0.000,-0.000 6.600,-0.000 8.215,-0.719 1.615,-0.719"/><text class="lbp" x="7.525" y="-0.635">&#945;</text><polygon class="plq" points="1.619,-0.053 3.020,-0.677 3.020,-3.677 1.619,-3.053"/><text class="lbr" x="3.000" y="-3.857">&#946;</text><line class="rt" x1="1.735" y1="-0.550" x2="6.575" y2="-0.212"/><text class="lbr" x="6.735" y="-0.092">r</text><line class="rt" x1="1.738" y1="-2.706" x2="2.925" y2="-1.235"/><text class="lbr" x="1.458" y="-2.746">s</text><line class="ei" x1="1.619" y1="-0.053" x2="3.020" y2="-0.677"/><line class="ang" x1="2.580" y1="-0.338" x2="2.580" y2="-0.658"/><line class="ang" x1="2.580" y1="-0.658" x2="2.260" y2="-0.658"/></svg></figure>
+<p><b>(a) Verdadeira.</b> Seja <i>i</i> = α ∩ β. Toda reta de β perpendicular a <i>i</i> é
+perpendicular a α, e por cada ponto de <i>i</i> passa uma dessas retas: são infinitas.</p>
+<p><b>(b) Verdadeira.</b> Como γ ⟂ <i>i</i>, as retas <i>r</i> e <i>s</i>, contidas em γ, são
+perpendiculares a <i>i</i>. Então o ângulo entre <i>r</i> e <i>s</i> é, por definição, a <b>secção
+reta</b> do diedro de aresta <i>i</i> formado por α e β. Esse diedro é reto, logo <i>r</i> ⟂
+<i>s</i>.</p>
+<p><b>(c) Falsa</b> — é a resposta. Dadas <i>r</i> e <i>s</i> reversas, os planos existem sempre:</p>
+<p>&nbsp;&nbsp;• tome α o plano que contém <i>r</i> e é paralelo a <i>s</i> (ele é único: basta
+traçar por um ponto de <i>r</i> a paralela a <i>s</i>);</p>
+<p>&nbsp;&nbsp;• projete <i>s</i> ortogonalmente sobre α, obtendo <i>s′</i>, e seja β o plano
+determinado por <i>s</i> e <i>s′</i>.</p>
+<p>O plano β contém as retas que projetam <i>s</i>, todas perpendiculares a α; logo β ⟂ α. E, por
+construção, <i>r</i> ⊂ α e <i>s</i> ⊂ β.</p>
+<p><b>(d) Verdadeira.</b> É a transitividade do paralelismo de retas no espaço.</p>
+<p class="gab">Resposta: <b>(c)</b> Se duas retas <i>r</i> e <i>s</i> são reversas, então não existem dois planos α e β, perpendiculares entre si, tais que <i>r</i> ⊂ α e <i>s</i> ⊂ β.</p></div></details>
+</article><article class="q" id="q20">
+<div class="hd"><span class="num">20</span></div>
+<div class="en"><p>Identifique o lugar geométrico dos pontos do espaço:</p>
+<ol class="alf"><li>equidistantes de duas retas paralelas dadas;</li>
+<li>equidistantes de dois planos paralelos dados.</li></ol></div>
+
+<details><summary><span class="sm-t">Resolução completa</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="0.623 -3.880 6.970 4.440" width="500" height="319" role="img" style="--u:0.01394px" aria-label="Plano equidistante de duas retas paralelas"><polygon class="plg" points="1.308,0.140 6.908,0.140 6.908,-3.460 1.308,-3.460"/><text class="lbp" x="1.408" y="-3.140">&#960;</text><polygon class="plq" points="1.043,-1.363 5.843,-1.363 7.173,-1.956 2.373,-1.956"/><text class="lbr" x="5.983" y="-1.063">&#963;</text><line class="ar" x1="1.608" y1="-2.960" x2="6.708" y2="-2.960"/><text class="lb" x="6.868" y="-2.860">b</text><line class="ar" x1="1.608" y1="-0.360" x2="6.708" y2="-0.360"/><text class="lb" x="6.868" y="-0.260">a</text><line class="pj" x1="1.608" y1="-1.660" x2="6.708" y2="-1.660"/><text class="lbp" x="6.868" y="-1.560">m</text><line class="ang" x1="3.846" y1="-1.588" x2="3.846" y2="-1.928"/><line class="ang" x1="3.846" y1="-1.928" x2="4.008" y2="-2.000"/></svg></figure>
+<p><b>a) Duas retas paralelas.</b> Sejam <i>a</i> e <i>b</i> as retas e π o plano que elas
+determinam. Em π, a <i>paralela média</i> <i>m</i> é a reta paralela a ambas e equidistante delas.
+Afirmamos que o lugar é o plano σ que passa por <i>m</i> e é perpendicular a π.</p>
+<p>Tome um ponto <i>X</i> do espaço e seja <i>X′</i> sua projeção ortogonal sobre π. Como <i>a</i>
+está em π, o teorema das três perpendiculares dá</p>
+<p class="dest">d(<i>X</i>,<i>a</i>)² = <i>XX′</i>² + d(<i>X′</i>,<i>a</i>)²,</p>
+<p>e o mesmo vale para <i>b</i>. Subtraindo, <i>X</i> equidista de <i>a</i> e <i>b</i> exatamente
+quando <i>X′</i> equidista delas, isto é, quando <i>X′</i> ∈ <i>m</i>. Os pontos cuja projeção cai em
+<i>m</i> são justamente os do plano perpendicular a π por <i>m</i>.</p>
+<p>O lugar é <b>o plano perpendicular ao plano das duas retas, traçado pela paralela média</b>.</p>
+<p><b>b) Dois planos paralelos.</b> Sejam α e β os planos e <i>d</i> a distância entre eles. Um ponto
+fora da região entre os dois tem distâncias <i>t</i> e <i>t</i> + <i>d</i>, que nunca são iguais.
+Entre os dois planos, as distâncias são <i>t</i> e <i>d</i> − <i>t</i>, iguais apenas para
+<i>t</i> = <i>d</i>/2.</p>
+<p>O lugar é <b>o plano médio</b>: o plano paralelo a α e β que dista <i>d</i>/2 de cada um.</p>
+<p class="gab">Resposta: <b>a) o plano perpendicular a (a, b) pela paralela média; b) o plano médio</b></p></div></details>
+</article><article class="q" id="q21">
+<div class="hd"><span class="num">21</span></div>
+<div class="en"><p>Duas faces de um triedro medem, respectivamente, 100° e 135°. Determine o
+intervalo de variação da medida da terceira face.</p></div>
+
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol"><figure class="fs"><svg viewBox="-2.450 -3.460 4.883 4.141" width="400" height="339" role="img" style="--u:0.01221px" aria-label="Triedro de vertice V: as tres faces"><polygon class="plq" points="0.000,-3.000 -1.412,-0.648 1.445,-0.566"/><polygon class="plq2" points="0.000,-3.000 1.445,-0.566 1.429,-1.027"/><line class="ar" x1="0.000" y1="-3.000" x2="-1.810" y2="0.015"/><line class="ar" x1="0.000" y1="-3.000" x2="1.852" y2="0.121"/><line class="ar" x1="0.000" y1="-3.000" x2="1.833" y2="-0.471"/><line class="hd" x1="-1.412" y1="-0.648" x2="1.445" y2="-0.566"/><line class="hd" x1="1.445" y1="-0.566" x2="1.429" y2="-1.027"/><line class="hd" x1="1.429" y1="-1.027" x2="-1.412" y2="-0.648"/><circle class="vt" cx="0.000" cy="-3.000" r="0.0352"/><text class="lb" x="-0.280" y="-3.040">V</text><text class="lb" x="-2.030" y="0.075">a</text><text class="lb" x="2.012" y="0.261">b</text><text class="lb" x="2.013" y="-0.411">c</text><path class="ang" fill="none" d="M -0.489 -2.185 A 0.95 0.95 0 0 0 0.485 -2.183"/><path class="ang" fill="none" d="M 0.316 -2.467 A 0.62 0.62 0 0 0 0.364 -2.498"/></svg></figure>
+<p>Num triedro as três faces satisfazem duas condições de existência: <b>cada face é menor que a
+soma das outras duas</b> e <b>a soma das três é menor que 360°</b>.</p>
+<p>Com <i>x</i> a terceira face, a primeira condição aplicada à maior das três dá</p>
+<p class="dest">135° &lt; 100° + <i>x</i> &nbsp;⟹&nbsp; <i>x</i> &gt; 35°,</p>
+<p>e aplicada a <i>x</i> dá <i>x</i> &lt; 235°, que nada acrescenta. A segunda condição dá</p>
+<p class="dest">100° + 135° + <i>x</i> &lt; 360° &nbsp;⟹&nbsp; <i>x</i> &lt; 125°.</p>
+<p>Juntando, <b>35° &lt; <i>x</i> &lt; 125°</b>.</p>
+<p class="gab">Resposta: <b>35° &lt; x &lt; 125°</b></p></div></details>
+</article><article class="q" id="q22">
+<div class="hd"><span class="num">22</span></div>
+<div class="en"><p>Dois diedros de um triedro medem, respectivamente, 60° e 110°. Determine o
+intervalo de variação da medida do terceiro diedro.</p></div>
+
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol">
+<p>As condições sobre os diedros saem das condições sobre as faces aplicadas ao <b>triedro
+polar</b>, cujas faces medem 180° menos os diedros do triedro dado. Elas são: a soma dos três diedros
+está entre 180° e 540°, e a soma de dois deles é menor que o terceiro mais 180°.</p>
+<p>Com <i>d</i> o terceiro diedro, a segunda condição dá três desigualdades, das quais só uma é
+restritiva:</p>
+<p class="dest">110° + <i>d</i> &lt; 60° + 180° &nbsp;⟹&nbsp; <i>d</i> &lt; 130°.</p>
+<p>E da soma,</p>
+<p class="dest">60° + 110° + <i>d</i> &gt; 180° &nbsp;⟹&nbsp; <i>d</i> &gt; 10°.</p>
+<p>Portanto <b>10° &lt; <i>d</i> &lt; 130°</b>.</p>
+<p class="gab">Resposta: <b>10° &lt; d &lt; 130°</b></p></div></details>
+</article><article class="q" id="q23">
+<div class="hd"><span class="num">23</span></div>
+<div class="en"><p>As faces de um ângulo poliédrico convexo medem <i>x</i>, 90° − <i>x</i>, 10°,
+20° e 30°. O intervalo de variação de <i>x</i> é</p></div>
+<ol class="alt"><li>10° &lt; <i>x</i> &lt; 90°</li><li>0° &lt; <i>x</i> &lt; 90°</li><li>15° &lt; <i>x</i> &lt; 90°</li><li>0° &lt; <i>x</i> &lt; 75°</li><li>15° &lt; <i>x</i> &lt; 75°</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol">
+<p>A soma das faces não restringe nada:</p>
+<p class="dest"><i>x</i> + (90° − <i>x</i>) + 10° + 20° + 30° = 150° &lt; 360°.</p>
+<p>Resta impor que <b>cada face seja menor que a soma das demais</b>, o que equivale a dizer que cada
+face é menor que 150° menos ela mesma, ou seja, menor que 75°. As faces 10°, 20° e 30° já cumprem
+isso. Para as outras duas:</p>
+<p class="dest"><i>x</i> &lt; 75° &nbsp;e&nbsp; 90° − <i>x</i> &lt; 75° ⟹ <i>x</i> &gt; 15°.</p>
+<p>Logo <b>15° &lt; <i>x</i> &lt; 75°</b>.</p>
+<p class="gab">Resposta: <b>(e)</b> 15° &lt; <i>x</i> &lt; 75°</p></div></details>
+</article><article class="q" id="q24">
+<div class="hd"><span class="num">24</span></div>
+<div class="en"><p>Num triedro, as duas maiores faces medem 70° e 120°. Qual das alternativas
+apresenta um valor possível para a terceira face?</p></div>
+<ol class="alt"><li>40°</li><li>50°</li><li>60°</li><li>70°</li><li>90°</li></ol>
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol">
+<p>Seja <i>x</i> a terceira face. As condições de existência dão</p>
+<p class="dest">120° &lt; 70° + <i>x</i> ⟹ <i>x</i> &gt; 50°, &nbsp;&nbsp;
+70° + 120° + <i>x</i> &lt; 360° ⟹ <i>x</i> &lt; 170°.</p>
+<p>O enunciado acrescenta uma informação que costuma passar despercebida: 70° e 120° são as
+<b>duas maiores</b> faces. Então <i>x</i> é a menor das três e</p>
+<p class="dest"><i>x</i> ≤ 70°.</p>
+<p>Fica 50° &lt; <i>x</i> ≤ 70°, e das alternativas só <b>60°</b> está nesse intervalo. Repare que
+40° e 50° violam a primeira condição, e 90° contraria o fato de 70° ser uma das duas maiores.</p>
+<p class="gab">Resposta: <b>(c)</b> 60°</p></div></details>
+</article><article class="q" id="q25">
+<div class="hd"><span class="num">25</span></div>
+<div class="en"><p>Os dois maiores ângulos diedros de um triedro medem 90° e 110°. Que valores
+pode assumir o terceiro ângulo diedro?</p></div>
+
+<details><summary><span class="sm-t">Resolução</span></summary>
+<div class="sol">
+<p>Seja <i>d</i> o terceiro diedro. Da condição que relaciona dois diedros com o terceiro,</p>
+<p class="dest">90° + 110° &lt; <i>d</i> + 180° &nbsp;⟹&nbsp; <i>d</i> &gt; 20°.</p>
+<p>A condição sobre a soma, 90° + 110° + <i>d</i> &gt; 180°, é automática. E, como 90° e 110° são os
+<b>dois maiores</b>, o terceiro é o menor:</p>
+<p class="dest"><i>d</i> ≤ 90°.</p>
+<p>Portanto <b>20° &lt; <i>d</i> ≤ 90°</b>. O extremo é atingido: os diedros 90°, 110° e 90°
+cumprem todas as condições, e nesse caso as duas maiores medidas continuam sendo 90° e 110°.</p>
+<p class="gab">Resposta: <b>20° &lt; d ≤ 90°</b></p></div></details>
+</article>
+<footer>
+<p>Resoluções completas de <b>Geometria Espacial — Curso Avançado</b>, 428 páginas, 885 problemas resolvidos.</p>
+<p>ISBN 978-65-02-43375-1 · Edição do autor · Rio de Janeiro, 2026</p>
+<p><i>Prof. Haroldo Costa Silva Filho</i></p>
+</footer>
+</div>
+</body></html>
