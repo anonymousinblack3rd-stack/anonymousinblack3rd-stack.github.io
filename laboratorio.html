@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratório — Prof. Haroldo Costa Silva Filho</title>
+<meta name="description" content="Animações e construções interativas de matemática: círculo trigonométrico, sólidos em rotação e applets do GeoGebra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+  <a class="nome" href="index.html">Haroldo Costa Silva Filho<span>Matemática</span></a>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="livros.html">Livros</a>
+    <a href="material.html">Listas e provas</a>
+    <a href="resolucoes/cap1.html">Resoluções</a>
+    <a href="laboratorio.html" aria-current="page">Laboratório</a>
+    <a href="pesquisa.html">Pesquisa</a>
+    <a href="servicos.html">Simulados e mentoria</a>
+  </nav>
+</div></header>
+<div class="hero"><div class="wrap">
+  <p class="eyebrow">Matemática que se mexe</p>
+  <h1>Laboratório</h1>
+  <p class="lead">Figura parada explica até certo ponto. Aqui ficam as construções que você mexe e
+  as animações que mostram o que acontece quando um parâmetro varia — escritas em código ou feitas
+  no GeoGebra.</p>
+</div></div>
+<main><div class="wrap">
+
+  <h2 class="sec">Animações</h2>
+
+  <article class="lab" id="anim-seno">
+    <h3>O seno como altura no círculo</h3>
+    <p>O ponto percorre a circunferência de raio 1. A altura dele acima do eixo horizontal é
+    exatamente sen θ, e é essa altura que vai sendo levada para a direita e desenhando a senoide.
+    Quem entende esta figura não precisa decorar o sinal do seno em cada quadrante.</p>
+    <div class="palco"><canvas></canvas></div>
+    <div class="ctrl">
+      <button class="btn" data-play>Pausar</button>
+      <label>Velocidade
+        <input type="range" data-vel min="0.2" max="2" step="0.1" value="0.7">
+      </label>
+      <label><input type="checkbox" data-cos> mostrar o cosseno</label>
+      <span class="leitura mono" data-leitura></span>
+    </div>
+  </article>
+
+  <article class="lab" id="anim-cubo">
+    <h3>O cubo girando, com as arestas do fundo tracejadas</h3>
+    <p>As arestas escondidas são calculadas, não chutadas: a cada quadro o programa decide quais
+    faces estão de costas para você, e uma aresta só vira tracejada quando as duas faces vizinhas
+    dela estão de costas. É o mesmo critério que usei para desenhar as figuras do livro de
+    Geometria Espacial.</p>
+    <div class="palco"><canvas></canvas></div>
+    <div class="ctrl">
+      <button class="btn" data-play>Pausar</button>
+      <label>Inclinação
+        <input type="range" data-incl min="0" max="60" step="1" value="22">
+      </label>
+    </div>
+  </article>
+
+</div></main><script src="assets/lab.js"></script>
+<footer><div class="wrap">
+<p>Prof. Haroldo Costa Silva Filho — Mestre em Matemática pela PUC-Rio.</p>
+<p>ORCID 0009-0002-4473-8974 · <a href="https://www.amazon.com.br/stores/author/B0H99K15ZJ">Todos os títulos na Amazon</a></p>
+</div></footer>
+</body></html>
