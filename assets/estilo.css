@@ -267,3 +267,95 @@ h3.grupo{font-family:var(--ff-tit);font-size:16px;font-weight:700;color:var(--mu
 .vid figcaption{padding:13px 16px}
 .vid figcaption b{font-family:var(--ff-tit);font-size:16.5px;display:block;margin-bottom:3px;color:var(--ac)}
 .vid figcaption span{color:var(--mu);font-size:15px}
+
+/* ===================== revisão estética — nov/2026 ===================== */
+:root{
+  --sf:#f4f7fa; --ln:#dfe6ed; --wash:#eaf1f8;
+  --sombra:0 1px 2px rgba(23,33,43,.04), 0 8px 20px -12px rgba(23,33,43,.22);
+  --sombra-capa:0 2px 6px rgba(23,33,43,.14), 0 16px 30px -18px rgba(23,33,43,.5);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sf:#19222b; --ln:#2b3540; --wash:#17222d;
+  --sombra:0 1px 2px rgba(0,0,0,.34), 0 10px 24px -14px rgba(0,0,0,.7);
+  --sombra-capa:0 2px 8px rgba(0,0,0,.5), 0 18px 34px -20px rgba(0,0,0,.85);
+}}
+
+/* topo com marca */
+.bar{gap:16px;padding:13px 0}
+.nome{display:flex;align-items:center;gap:11px}
+.nome .marca{width:38px;height:38px;flex:none;border-radius:50%;box-shadow:var(--sombra)}
+.nome i{font-style:normal;display:block;white-space:nowrap}
+nav a{font-size:14px;padding:7px 11px}
+
+/* hero */
+.hero{padding:52px 0 34px}
+h1{text-wrap:balance}
+.lead{text-wrap:pretty}
+
+/* títulos de seção */
+h2.sec{font-size:24px;border-bottom:1px solid var(--ln);position:relative;padding-bottom:11px}
+h2.sec::after{content:"";position:absolute;left:0;bottom:-1px;width:56px;height:3px;
+  background:var(--ac);border-radius:2px}
+
+/* cartões do índice */
+.cards{grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:880px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.cards{grid-template-columns:1fr}}
+.card{padding:19px 21px;box-shadow:var(--sombra);
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease}
+.card:hover{border-color:var(--ac2);transform:translateY(-2px);
+  box-shadow:0 2px 4px rgba(23,33,43,.05), 0 14px 26px -14px rgba(23,33,43,.3)}
+.card h3 a::after{content:" →";color:var(--ac2);opacity:0;transition:opacity .15s}
+.card:hover h3 a::after{opacity:1}
+
+/* livros */
+.livro{grid-template-columns:186px 1fr;gap:30px;padding:26px 28px;box-shadow:var(--sombra)}
+.capa{box-shadow:var(--sombra-capa);border-radius:3px}
+.livro .itens.caps{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0 0 4px}
+.livro .itens.caps .item{margin:0;padding:8px 13px;border-radius:7px}
+.livro .itens.caps .meta{margin:0;font-size:13.5px}
+@media(max-width:680px){.livro .itens.caps{grid-template-columns:1fr}}
+
+/* botões */
+.btn{font-size:14px;padding:7px 14px;border-radius:8px;transition:background .14s,color .14s}
+.acoes{gap:8px}
+
+/* bio do autor */
+.bio{display:grid;grid-template-columns:140px 1fr;gap:26px;align-items:start}
+.bio img{width:140px;height:140px;border-radius:50%;object-fit:cover;
+  border:4px solid var(--wash);box-shadow:var(--sombra)}
+.bio-cred{color:var(--mu);font-size:15.5px}
+@media(max-width:560px){.bio{grid-template-columns:1fr}
+  .bio img{width:108px;height:108px}}
+
+/* rodapé */
+footer{background:var(--sf);padding:28px 0 46px}
+.pe{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.pe-id{display:flex;align-items:center;gap:13px}
+.pe-id img{width:42px;height:42px;border-radius:50%;flex:none}
+.pe-id b{font-family:var(--ff-tit);display:block;color:var(--tx);font-size:15.5px;font-weight:700}
+.pe-id span{font-size:13.5px}
+.pe-links{display:flex;flex-wrap:wrap;gap:3px}
+.pe-links a{font-family:var(--ff-tit);font-size:14px;font-weight:600;text-decoration:none;
+  color:var(--mu);padding:6px 10px;border-radius:7px}
+.pe-links a:hover{color:var(--ac);background:var(--wash)}
+
+/* foco visível e seleção */
+a:focus-visible,.btn:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible{outline:2px solid var(--ac2);outline-offset:2px;border-radius:6px}
+::selection{background:var(--wash);color:var(--ac)}
+
+/* celular: cabeçalho em bloco */
+@media(max-width:620px){
+  .livro{grid-template-columns:1fr;gap:18px;padding:20px}
+  .livro .capa{max-width:190px}
+  .bar{padding:12px 0}
+  .nome .marca{width:34px;height:34px}
+  .nome i{white-space:normal}
+  footer{padding:24px 0 38px}
+  .pe{gap:16px}
+}
+[hidden]{display:none !important}
+.visitas{display:block;font-family:var(--ff-tit);font-size:12.5px;color:var(--mu);
+  margin-top:4px;letter-spacing:.02em;white-space:nowrap}
+.visitas b{color:var(--ac);font-weight:700;font-variant-numeric:tabular-nums}
