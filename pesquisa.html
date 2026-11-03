@@ -9,10 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/estilo.css">
+<link rel="icon" href="assets/marca.svg" type="image/svg+xml">
 </head>
 <body class="p-pesquisa">
 <header class="top"><div class="wrap bar">
-  <a class="nome" href="index.html">Haroldo Costa Silva Filho<span>Matemática</span></a>
+  <a class="nome" href="index.html"><img class="marca" src="assets/marca.svg" alt="" width="38" height="38"><i>Haroldo Costa Silva Filho<span>Matemática</span></i></a>
   <nav>
     <a href="index.html">Início</a>
     <a href="livros.html">Livros</a>
@@ -43,6 +44,24 @@
         <p class="meta">Preprint · arXiv:2608.13592 · math.MG, math.CO · autoria única</p>
       </div>
       <a class="btn cheio" href="https://arxiv.org/abs/2608.13592">Ler no arXiv</a>
+    </li>
+  </ul>
+
+  <h2 class="sec">Levantamentos</h2>
+
+  <ul class="itens">
+    <li class="item">
+      <div class="txt">
+        <h3>Dissecções de triângulos em triângulos — levantamento bibliográfico e frentes de contribuição</h3>
+        <p>A literatura sobre dividir um triângulo em triângulos menores, organizada em cinco frentes
+        independentes: peças similares, peças congruentes, dissecções perfeitas, enumeração topológica
+        e a aritmética algébrica das razões de semelhança. Reconstrói a cronologia de 1940 a 2021,
+        sistematiza sete problemas em aberto e aponta onde o ferramental da linha de grafos de distância
+        unitária — rigidez de Laman, decisão em ∃R, aritmética intervalar de Krawczyk e codificações SAT —
+        se aplica sem adaptação.</p>
+        <p class="meta">PPG-CompMat, IME-UERJ · 18 páginas · agosto de 2026</p>
+      </div>
+      <a class="btn cheio" href="arquivos/dissecoes-de-triangulos-levantamento.pdf" download>Baixar o PDF</a>
     </li>
   </ul>
 
@@ -104,8 +123,12 @@
     </li>
   </ul>
 
-</div></main><footer><div class="wrap">
-<p>Prof. Haroldo Costa Silva Filho — Mestre em Matemática pela PUC-Rio.</p>
-<p>ORCID 0009-0002-4473-8974 · <a href="https://www.amazon.com.br/stores/author/B0H99K15ZJ">Todos os títulos na Amazon</a></p>
+</div></main><footer><div class="wrap pe">
+  <div class="pe-id"><img src="assets/marca.svg" alt="" width="42" height="42">
+    <div><b>Prof. Haroldo Costa Silva Filho</b>
+    <span>Mestre em Matemática pela PUC-Rio · ORCID 0009-0002-4473-8974</span><span class="visitas" id="visitas" hidden><b>0</b> visitas</span></div></div>
+  <div class="pe-links">
+    <a href="livros.html">Livros</a><a href="estudar.html">Estudar</a><a href="laboratorio.html">Laboratório</a><a href="cursos.html">Cursos e mentoria</a><a href="https://www.amazon.com.br/stores/author/B0H99K15ZJ">Amazon</a></div>
 </div></footer>
+<script src="assets/contador.js"></script>
 </body></html>
