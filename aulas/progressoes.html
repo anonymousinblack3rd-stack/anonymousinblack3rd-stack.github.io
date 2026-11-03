@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="author" content="Haroldo Costa Silva Filho">
+<meta name="description" content="Aula interativa de Progressoes: 3 minutos de PA e 3 minutos de PG, com laboratorio de parametros e teste rapido.">
+<style>
+:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+body{font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<link rel="icon" href="../assets/marca.svg" type="image/svg+xml">
+</head>
+<body>
+<title>Progressões em Movimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@500;600&display=swap">
+<style>
+:root{
+  --papel:#F7F5F0; --sup:#FFFFFF; --sup2:#EFEDE7; --linha:#DCD8CF;
+  --tinta:#16202B; --tinta2:#59636E;
+  --azul:#154273; --azul-cl:#2E6DAE;
+  --verde:#1C8054; --verde-cl:#2FA872;
+  --laranja:#D66D14; --ambar:#B0840A;
+  --vermelho:#B02A2A;
+  --tela:#101C28; --tela2:#16283A;
+  --foco:#D66D14;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#0D151D; --sup:#141F2A; --sup2:#1B2833; --linha:#2A3A48;
+    --tinta:#E9EDF1; --tinta2:#9BA8B4;
+    --azul:#5B9BD9; --azul-cl:#7FB6E8;
+    --verde:#48BE8B; --verde-cl:#6FD3A7;
+    --laranja:#F0913F; --ambar:#DCB33F;
+    --vermelho:#E2706B;
+    --tela:#081018; --tela2:#0E1B26;
+    --foco:#F0913F;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#0D151D; --sup:#141F2A; --sup2:#1B2833; --linha:#2A3A48;
+  --tinta:#E9EDF1; --tinta2:#9BA8B4;
+  --azul:#5B9BD9; --azul-cl:#7FB6E8;
+  --verde:#48BE8B; --verde-cl:#6FD3A7;
+  --laranja:#F0913F; --ambar:#DCB33F;
+  --vermelho:#E2706B;
+  --tela:#081018; --tela2:#0E1B26;
+  --foco:#F0913F;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:16px; line-height:1.5;
+}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:18px; padding-block:26px 56px}
+h1,h2,h3{font-family:"Bitter", Georgia, "Times New Roman", serif; margin:0; text-wrap:balance}
+.eyebrow{font-family:"Source Code Pro",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--tinta2)}
+
+/* ---------- cabeçalho ---------- */
+header.top{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 22px; margin-bottom:20px}
+header.top h1{font-size:clamp(26px,4.4vw,38px); line-height:1.1; letter-spacing:-.01em}
+header.top p{margin:4px 0 0; color:var(--tinta2); max-width:56ch}
+.assina{margin-left:auto; text-align:right; font-size:13px; color:var(--tinta2); line-height:1.35}
+.assina b{color:var(--tinta); font-weight:600; display:block}
+
+/* ---------- abas de episódio ---------- */
+.eps{display:flex; gap:8px; margin:0 0 14px; flex-wrap:wrap}
+.ep{
+  appearance:none; cursor:pointer; border:1px solid var(--linha); background:var(--sup);
+  color:var(--tinta2); font:inherit; font-size:14px; padding:9px 15px 9px 12px; border-radius:2px;
+  display:flex; align-items:center; gap:9px; transition:border-color .15s, color .15s;
+}
+.ep .tag{font-family:"Source Code Pro",monospace; font-weight:600; font-size:12px;
+  padding:2px 6px; border-radius:2px; background:var(--sup2); color:var(--tinta2)}
+.ep[aria-selected="true"]{color:var(--tinta); border-color:currentColor}
+.ep[data-k="pa"][aria-selected="true"]{color:var(--azul)}
+.ep[data-k="pa"][aria-selected="true"] .tag{background:var(--azul); color:#fff}
+.ep[data-k="pg"][aria-selected="true"]{color:var(--verde)}
+.ep[data-k="pg"][aria-selected="true"] .tag{background:var(--verde); color:#fff}
+.ep:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--foco); outline-offset:2px}
+
+/* ---------- palco ---------- */
+.stage{border:1px solid var(--linha); background:var(--tela); border-radius:3px; overflow:hidden}
+.screen{position:relative; width:100%; aspect-ratio:16/9; max-width:100%; display:block; background:var(--tela)}
+canvas#cv{width:100%; height:100%; display:block}
+.legenda{
+  padding:13px 16px 15px; background:var(--tela2); border-top:1px solid rgba(255,255,255,.07);
+  color:#E9EDF1; min-height:74px; display:flex; align-items:center;
+}
+.legenda p{margin:0; font-size:clamp(14px,2.1vw,17px); line-height:1.45; max-width:74ch}
+.legenda b{color:var(--laranja)}
+
+/* ---------- transporte ---------- */
+.transp{display:flex; align-items:center; gap:12px; padding:11px 14px; background:var(--sup);
+  border:1px solid var(--linha); border-top:none; flex-wrap:wrap}
+.pbtn{appearance:none; cursor:pointer; border:none; width:42px; height:42px; border-radius:50%;
+  background:var(--azul); color:#fff; display:grid; place-items:center; flex:none; transition:transform .12s}
+.pbtn:active{transform:scale(.94)}
+body[data-ep="pg"] .pbtn{background:var(--verde)}
+.pbtn svg{width:17px; height:17px; fill:currentColor}
+.tempo{font-family:"Source Code Pro",monospace; font-size:13px; font-variant-numeric:tabular-nums;
+  color:var(--tinta2); flex:none}
+.trilho{flex:1 1 200px; position:relative; min-width:160px}
+input[type=range]{width:100%; margin:0; accent-color:var(--laranja); background:transparent}
+.marcas{position:absolute; left:0; right:0; top:2px; height:6px; pointer-events:none}
+.marcas span{position:absolute; top:0; width:2px; height:6px; background:var(--linha)}
+.tbtn{appearance:none; cursor:pointer; border:1px solid var(--linha); background:var(--sup2);
+  color:var(--tinta2); font:inherit; font-size:12.5px; padding:6px 10px; border-radius:2px}
+.tbtn[aria-pressed="true"]{background:var(--laranja); border-color:var(--laranja); color:#fff}
+
+/* ---------- capítulos ---------- */
+.caps{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+  background:var(--linha); border:1px solid var(--linha); border-top:none; margin-bottom:26px}
+.cap{appearance:none; cursor:pointer; border:none; background:var(--sup); color:var(--tinta2);
+  font:inherit; font-size:13px; text-align:left; padding:10px 12px; display:flex; flex-direction:column; gap:2px}
+.cap .n{font-family:"Source Code Pro",monospace; font-size:11px; letter-spacing:.08em; color:var(--tinta2)}
+.cap[aria-current="true"]{background:var(--sup2); color:var(--tinta)}
+.cap[aria-current="true"] .n{color:var(--laranja)}
+
+/* ---------- blocos ---------- */
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.bloco{border:1px solid var(--linha); background:var(--sup); padding:18px 18px 20px; border-radius:3px}
+.bloco h3{font-size:18px; margin-bottom:3px}
+.bloco > .eyebrow{display:block; margin-bottom:10px}
+
+/* laboratório */
+.ctrl{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px 12px; margin:11px 0}
+.ctrl label{font-size:14px; color:var(--tinta2)}
+.ctrl output{font-family:"Source Code Pro",monospace; font-size:13.5px; font-weight:600;
+  font-variant-numeric:tabular-nums; color:var(--tinta); min-width:78px; text-align:right}
+.labcv{width:100%; aspect-ratio:5/2; max-width:100%; display:block; margin:12px 0 6px;
+  background:var(--sup2); border-radius:2px}
+.saida{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+.pill{border:1px solid var(--linha); border-left:3px solid var(--laranja); background:var(--papel);
+  padding:7px 11px; border-radius:2px; flex:1 1 150px}
+.pill .k{display:block; font-size:11.5px; color:var(--tinta2); letter-spacing:.04em}
+.pill .v{font-family:"Source Code Pro",monospace; font-size:17px; font-weight:600;
+  font-variant-numeric:tabular-nums; color:var(--tinta)}
+
+/* quiz */
+.q p.enun{margin:0 0 12px; font-size:15px}
+.opts{display:flex; flex-direction:column; gap:7px}
+.opt{appearance:none; cursor:pointer; text-align:left; font:inherit; font-size:14.5px;
+  border:1px solid var(--linha); background:var(--papel); color:var(--tinta);
+  padding:10px 13px; border-radius:2px; display:flex; gap:10px; align-items:baseline}
+.opt .l{font-family:"Source Code Pro",monospace; font-weight:600; color:var(--tinta2); flex:none}
+.opt[data-st="ok"]{border-color:var(--verde); background:color-mix(in srgb,var(--verde) 12%, transparent)}
+.opt[data-st="ok"] .l{color:var(--verde)}
+.opt[data-st="no"]{border-color:var(--vermelho); background:color-mix(in srgb,var(--vermelho) 10%, transparent)}
+.opt[data-st="no"] .l{color:var(--vermelho)}
+.fb{margin:11px 0 0; font-size:14px; color:var(--tinta2); min-height:1.4em}
+
+.fonte{margin-top:26px; padding-top:16px; border-top:1px solid var(--linha);
+  font-size:13px; color:var(--tinta2); display:flex; flex-wrap:wrap; gap:6px 18px}
+.fonte b{color:var(--tinta); font-weight:600}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important; transition-duration:.01ms!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <span class="eyebrow">Aula em vídeo · interativa</span>
+    <h1>Progressões em Movimento</h1>
+    <p>Dois problemas do material, animados passo a passo: três minutos de PA e três minutos de PG.</p>
+  </div>
+  <div class="assina"><b>Prof. Haroldo Costa Silva Filho</b><a href="../laboratorio.html" style="color:inherit">voltar ao Laboratório</a></div>
+</header>
+
+<div class="eps" role="tablist" aria-label="Episódios">
+  <button class="ep" data-k="pa" role="tab" aria-selected="true" id="tab-pa">
+    <span class="tag">PA</span><span>O maratonista <span style="color:var(--tinta2)">· 3:00</span></span>
+  </button>
+  <button class="ep" data-k="pg" role="tab" aria-selected="false" id="tab-pg">
+    <span class="tag">PG</span><span>A bola quicante <span style="color:var(--tinta2)">· 3:00</span></span>
+  </button>
+</div>
+
+<div class="stage">
+  <div class="screen"><canvas id="cv"></canvas></div>
+  <div class="legenda"><p id="cap">Toque em <b>reproduzir</b> para começar.</p></div>
+</div>
+
+<div class="transp">
+  <button class="pbtn" id="play" aria-label="Reproduzir">
+    <svg id="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5l11 6.5-11 6.5z"/></svg>
+  </button>
+  <span class="tempo" id="tempo">0:00 / 3:00</span>
+  <div class="trilho">
+    <input type="range" id="scrub" min="0" max="180" step="0.05" value="0" aria-label="Linha do tempo">
+    <div class="marcas" id="marcas"></div>
+  </div>
+  <button class="tbtn" id="vel" aria-label="Velocidade de reprodução">1×</button>
+  <button class="tbtn" id="narr" aria-pressed="false" aria-label="Narração por voz">Narração</button>
+</div>
+
+<div class="caps" id="caps"></div>
+
+<div class="grid2">
+  <section class="bloco">
+    <span class="eyebrow">Laboratório</span>
+    <h3 id="labTit">Mude a progressão</h3>
+    <p style="margin:4px 0 0;color:var(--tinta2);font-size:14px" id="labSub">
+      Os controles são independentes do vídeo: mexa à vontade.</p>
+    <canvas class="labcv" id="labcv"></canvas>
+    <div id="labCtrls"></div>
+    <div class="saida" id="labOut"></div>
+  </section>
+
+  <section class="bloco q">
+    <span class="eyebrow">Teste rápido</span>
+    <h3 id="qTit">Entendeu a ideia?</h3>
+    <p class="enun" id="qEnun"></p>
+    <div class="opts" id="qOpts"></div>
+    <p class="fb" id="qFb"></p>
+  </section>
+</div>
+
+<div class="fonte">
+  <span><b>Fonte dos problemas:</b> apostila <i>Progressões</i> — Bateria C, questões 38 e 54.</span>
+  <span><b>PA:</b> maratonista, 14 dias.</span>
+  <span><b>PG:</b> bola de 12 m, UERJ.</span>
+</div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ===================== paleta ===================== */
+var P={};
+function lerPaleta(){
+  var cs=getComputedStyle(document.documentElement);
+  ["azul","azul-cl","verde","verde-cl","laranja","ambar","vermelho","tinta","tinta2","linha","tela","tela2"]
+    .forEach(function(k){P[k]=cs.getPropertyValue("--"+k).trim();});
+  P.branco="#F2F5F8"; P.fraco="rgba(233,237,241,.55)"; P.grade="rgba(233,237,241,.13)";
+}
+lerPaleta();
+try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",lerPaleta); }catch(e){}
+new MutationObserver(lerPaleta).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+/* ===================== utilidades ===================== */
+var W=960,H=540;
+function clamp(x,a,b){return x<a?a:x>b?b:x;}
+function ease(x){x=clamp(x,0,1);return x*x*(3-2*x);}
+function fmt(n,d){return n.toLocaleString("pt-BR",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});}
+function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+
+function txt(c,s,x,y,size,cor,peso,alin){
+  c.save();
+  c.font=(peso||600)+" "+size+"px 'Source Sans 3', system-ui, sans-serif";
+  c.fillStyle=cor||P.branco; c.textAlign=alin||"left"; c.textBaseline="alphabetic";
+  c.fillText(s,x,y); c.restore();
+}
+function mono(c,s,x,y,size,cor,alin){
+  c.save();
+  c.font="600 "+size+"px 'Source Code Pro', ui-monospace, monospace";
+  c.fillStyle=cor||P.branco; c.textAlign=alin||"left"; c.textBaseline="alphabetic";
+  c.fillText(s,x,y); c.restore();
+}
+function serif(c,s,x,y,size,cor,alin){
+  c.save();
+  c.font="700 "+size+"px Bitter, Georgia, serif";
+  c.fillStyle=cor||P.branco; c.textAlign=alin||"left"; c.textBaseline="alphabetic";
+  c.fillText(s,x,y); c.restore();
+}
+function caixa(c,x,y,w,h,cor,alpha,raio){
+  raio=raio===undefined?6:raio;
+  c.save(); c.globalAlpha=alpha===undefined?1:alpha; c.fillStyle=cor;
+  c.beginPath(); c.roundRect(x,y,w,h,raio); c.fill(); c.restore();
+}
+function moldura(c,x,y,w,h,cor,lw,raio){
+  c.save(); c.strokeStyle=cor; c.lineWidth=lw||2;
+  c.beginPath(); c.roundRect(x,y,w,h,raio===undefined?6:raio); c.stroke(); c.restore();
+}
+function formula(c,s,cx,y,size,cor){
+  var pad=18, wid;
+  c.save(); c.font="600 "+size+"px 'Source Code Pro', monospace";
+  wid=c.measureText(s).width; c.restore();
+  caixa(c,cx-wid/2-pad,y-size-10,wid+2*pad,size+26,cor||P.ambar,.16,4);
+  moldura(c,cx-wid/2-pad,y-size-10,wid+2*pad,size+26,cor||P.ambar,1.5,4);
+  mono(c,s,cx,y,size,cor||P.ambar,"center");
+}
+function titulo(c,eyebrow,t,cor,a){
+  c.save(); c.globalAlpha=a===undefined?1:a;
+  mono(c,eyebrow,60,68,13,cor);
+  c.strokeStyle=cor; c.lineWidth=2; c.beginPath(); c.moveTo(60,80); c.lineTo(104,80); c.stroke();
+  serif(c,t,60,116,30,P.branco);
+  c.restore();
+}
+function linhasTexto(c,arr,x,y,size,dy,cor,ate){
+  for(var i=0;i<arr.length;i++){
+    if(ate!==undefined && i>=ate) break;
+    txt(c,arr[i],x,y+i*dy,size,cor||P.fraco,400);
+  }
+}
+function grade(c){
+  c.save(); c.strokeStyle=P.grade; c.lineWidth=1;
+  for(var x=60;x<=W-60;x+=60){c.beginPath();c.moveTo(x,140);c.lineTo(x,H-52);c.stroke();}
+  c.restore();
+}
+
+/* ===================== EPISÓDIO 1 — PA ===================== */
+var A1=1500, R=500, N=14;            // maratonista
+var dist=[]; for(var i=0;i<N;i++) dist.push(A1+i*R);
+var SOMA=dist.reduce(function(a,b){return a+b;},0);   // 66 500
+
+function eixoBarras(c,y0,hmax,val,destaque,alturaFrac){
+  var x0=78, larg=(W-160)/N, gap=6;
+  for(var i=0;i<N;i++){
+    var f=clamp((alturaFrac===undefined?1:alturaFrac)*1,0,1);
+    var h=(val[i]/hmax)*(y0-175)*f;
+    var x=x0+i*larg;
+    var cor=(destaque!==undefined&&i===destaque)?P.laranja:P["azul-cl"];
+    caixa(c,x,y0-h,larg-gap,h,cor,(destaque!==undefined&&i!==destaque)?.45:.9,3);
+    if(i===0||i===N-1||i===destaque)
+      mono(c,fmt(val[i]),x+(larg-gap)/2,y0-h-9,12,cor,"center");
+    mono(c,String(i+1),x+(larg-gap)/2,y0+18,11,P.fraco,"center");
+  }
+  c.save(); c.strokeStyle=P.fraco; c.lineWidth=1.5;
+  c.beginPath(); c.moveTo(x0-10,y0); c.lineTo(W-70,y0); c.stroke(); c.restore();
+  mono(c,"dia",W-62,y0+18,11,P.fraco,"left");
+}
+
+var epPA={
+  nome:"O maratonista", cor:"azul", dur:180,
+  cenas:[
+  { t:0, tit:"O problema", eyebrow:"CENA 1 · ENUNCIADO",
+    cap:"Num período de <b>14 dias</b> de treinamento, um maratonista corre a cada dia <b>500 metros a mais</b> que no dia anterior. Ao final dos 14 dias ele percorreu <b>66,5 km</b>. Quantos metros ele correu no último dia?",
+    draw:function(c,t){
+      titulo(c,"CENA 1 · ENUNCIADO","O problema",P["azul-cl"],ease(t/1.2));
+      var a=ease((t-0.8)/1.4);
+      c.save(); c.globalAlpha=a;
+      caixa(c,60,160,W-120,190,P["azul-cl"],.10,6);
+      moldura(c,60,160,W-120,190,P["azul-cl"],1.5,6);
+      linhasTexto(c,[
+        "14 dias de treinamento.",
+        "Cada dia: 500 m a mais que o dia anterior.",
+        "Total percorrido: 66,5 km  =  66 500 m.",
+        "",
+        "Quantos metros ele correu no 14º dia?"
+      ],92,205,21,36,P.branco,Math.floor((t-1.2)/0.9)+1);
+      c.restore();
+      // corredor
+      var b=ease((t-3.5)/2.5);
+      c.save(); c.globalAlpha=b;
+      var px=110+b*(W-260);
+      c.strokeStyle=P.laranja; c.lineWidth=3; c.lineCap="round";
+      c.beginPath(); c.moveTo(60,H-70); c.lineTo(W-60,H-70); c.stroke();
+      c.fillStyle=P.laranja;
+      c.beginPath(); c.arc(px,H-118,9,0,7); c.fill();
+      c.beginPath(); c.moveTo(px,H-109); c.lineTo(px-4,H-86); c.stroke();
+      c.beginPath(); c.moveTo(px-4,H-86); c.lineTo(px-16,H-70); c.moveTo(px-4,H-86); c.lineTo(px+12,H-70); c.stroke();
+      c.beginPath(); c.moveTo(px-1,H-103); c.lineTo(px-17,H-96); c.moveTo(px-1,H-103); c.lineTo(px+15,H-108); c.stroke();
+      c.restore();
+    }},
+  { t:20, tit:"A progressão", eyebrow:"CENA 2 · RECONHECER",
+    cap:"As distâncias diárias formam uma <b>progressão aritmética</b>: de um dia para o outro soma-se sempre a mesma quantia. Essa quantia é a <b>razão</b>, aqui r = 500.",
+    draw:function(c,t){
+      titulo(c,"CENA 2 · RECONHECER","As distâncias formam uma PA",P["azul-cl"]);
+      grade(c);
+      var n=clamp(Math.floor(t/1.6)+1,1,N);
+      var vals=dist.map(function(v,i){return i<n?v:0;});
+      eixoBarras(c,H-96,dist[N-1],vals,undefined,1);
+      // setas +500 entre os topos das barras
+      var y0=H-96, alturaMax=y0-175, larg=(W-160)/N;
+      c.save(); c.globalAlpha=.9; c.strokeStyle=P.laranja; c.lineWidth=1.6; c.lineCap="round";
+      for(var i=0;i<Math.min(n-1,5);i++){
+        var xa=78+i*larg+(larg-6)/2, xb=78+(i+1)*larg+(larg-6)/2;
+        var ya=y0-(dist[i]/dist[N-1])*alturaMax-14;
+        var yb=y0-(dist[i+1]/dist[N-1])*alturaMax-14;
+        c.beginPath(); c.moveTo(xa+6,ya); c.quadraticCurveTo((xa+xb)/2,Math.min(ya,yb)-24,xb-6,yb); c.stroke();
+        mono(c,"+500",(xa+xb)/2,Math.min(ya,yb)-30,11,P.laranja,"center");
+      }
+      c.restore();
+      if(t>12) formula(c,"a(n+1) - a(n) = r = 500",W/2,H-30,19,P.laranja);
+    }},
+  { t:52, tit:"Termo geral", eyebrow:"CENA 3 · FÓRMULA",
+    cap:"Do primeiro ao décimo quarto dia há <b>13 saltos</b> de 500 m — e não 14. Esse é o erro mais comum do capítulo.",
+    draw:function(c,t){
+      titulo(c,"CENA 3 · FÓRMULA","Termo geral");
+      grade(c);
+      var d=clamp(Math.floor(t/1.1),0,N-1);
+      eixoBarras(c,H-96,dist[N-1],dist,d,1);
+      formula(c,"a(n) = a(1) + (n - 1) · r",W/2,182,22,P.ambar);
+      if(t>6){
+        c.save(); c.globalAlpha=ease((t-6)/1.2);
+        mono(c,"a("+(d+1)+") = 1500 + "+d+" × 500 = "+fmt(dist[d]),W/2,222,17,P["azul-cl"],"center");
+        c.restore();
+      }
+      if(t>18) formula(c,"a(14) = a(1) + 13 · 500",W/2,H-36,18,P.laranja);
+    }},
+  { t:80, tit:"Truque de Gauss", eyebrow:"CENA 4 · SOMA",
+    cap:"Empilhe a PA sobre uma cópia invertida dela: cada coluna passa a ter a mesma altura, <b>a₁ + aₙ</b>. Duas somas formam um retângulo — logo uma soma vale metade dele.",
+    draw:function(c,t){
+      titulo(c,"CENA 4 · SOMA","O truque de Gauss");
+      var y0=H-96, x0=78, larg=(W-160)/N, gap=6, topo=y0-175;
+      var total=dist[0]+dist[N-1];
+      var f=ease((t-1.5)/3.5);
+      for(var i=0;i<N;i++){
+        var x=x0+i*larg;
+        var ha=(dist[i]/total)*(y0-topo);
+        var hb=(dist[N-1-i]/total)*(y0-topo)*f;
+        caixa(c,x,y0-ha,larg-gap,ha,P["azul-cl"],.9,3);
+        caixa(c,x,y0-ha-hb,larg-gap,hb,P.laranja,.85,3);
+      }
+      c.save(); c.strokeStyle=P.fraco; c.lineWidth=1.5;
+      c.beginPath(); c.moveTo(x0-10,y0); c.lineTo(W-70,y0); c.stroke(); c.restore();
+      if(f>0.98){
+        c.save(); c.globalAlpha=ease((t-5.2)/1.2);
+        c.strokeStyle=P.branco; c.lineWidth=1.5; c.setLineDash([6,5]);
+        c.beginPath(); c.moveTo(x0-10,topo); c.lineTo(W-70,topo); c.stroke();
+        c.restore();
+        mono(c,"cada coluna = a(1) + a(14) = "+fmt(total),W/2,topo-14,14,P.branco,"center");
+      }
+      if(t>9 && t<=17) formula(c,"2 · S(n) = n · ( a(1) + a(n) )",W/2,214,20,P.laranja);
+      if(t>17) formula(c,"S(n) = ( a(1) + a(n) ) · n / 2",W/2,214,22,P.ambar);
+      if(t>26){
+        c.save(); c.globalAlpha=ease((t-26)/1.2);
+        txt(c,"Some o primeiro com o último, multiplique pela quantidade de termos, divida por 2.",
+            W/2,H-30,17,P.fraco,400,"center");
+        c.restore();
+      }
+    }},
+  { t:120, tit:"Resolvendo", eyebrow:"CENA 5 · CONTA",
+    cap:"Agora é substituir. A soma é conhecida (66 500 m) e a razão também (500 m) — a única incógnita é o primeiro dia.",
+    draw:function(c,t){
+      titulo(c,"CENA 5 · CONTA","Resolvendo o problema");
+      var passos=[
+        "S(14) = ( 2·a(1) + 13·500 ) · 14 / 2  =  66 500",
+        "7 · ( 2·a(1) + 6 500 )  =  66 500",
+        "2·a(1) + 6 500  =  9 500",
+        "a(1)  =  1 500  m",
+        "a(14) = 1 500 + 13 × 500  =  8 000  m"
+      ];
+      var n=clamp(Math.floor(t/5.6),0,passos.length-1);
+      for(var i=0;i<=n;i++){
+        var a=ease((t-i*5.6)/1.1);
+        c.save(); c.globalAlpha=a;
+        var y=196+i*54, dest=(i===passos.length-1);
+        caixa(c,86,y-30,W-172,44,dest?P.laranja:P["azul-cl"],dest?.20:.10,4);
+        if(dest) moldura(c,86,y-30,W-172,44,P.laranja,1.5,4);
+        mono(c,passos[i],108,y,dest?21:19,dest?P.laranja:P.branco);
+        c.restore();
+      }
+    }},
+  { t:160, tit:"Resposta", eyebrow:"CENA 6 · FECHO",
+    cap:"No último dia ele correu <b>8 000 metros</b> — 8 km. Guarde a ideia: sempre que algo cresce somando <i>a mesma quantidade</i>, é PA, e a soma sai pelo truque de Gauss.",
+    draw:function(c,t){
+      titulo(c,"CENA 6 · FECHO","Resposta");
+      var a=ease(t/1.2);
+      c.save(); c.globalAlpha=a;
+      caixa(c,W/2-210,168,420,108,P.laranja,.18,8);
+      moldura(c,W/2-210,168,420,108,P.laranja,2,8);
+      mono(c,"8 000 m",W/2,232,50,P.laranja,"center");
+      txt(c,"distância percorrida no 14º dia",W/2,262,15,P.fraco,400,"center");
+      c.restore();
+      if(t>3){
+        c.save(); c.globalAlpha=ease((t-3)/1.4);
+        eixoBarras(c,H-72,dist[N-1],dist,N-1,1);
+        c.restore();
+      }
+    }}
+  ]
+};
+
+/* ===================== EPISÓDIO 2 — PG ===================== */
+var H0=12, Q=0.5, TOQUES=8;
+var alt=[]; for(var k=0;k<TOQUES;k++) alt.push(H0*Math.pow(Q,k));
+var DIST8=H0+2*H0*(1-Math.pow(Q,TOQUES-1));   // 573/16 = 35,8125
+var DINF=H0+2*H0;                              // 36
+
+function arcos(){
+  var segs=[], t=0, x=100, passo=(W-210)/(TOQUES+0.6);
+  segs.push({t0:0,t1:Math.sqrt(H0),tipo:"queda",h:H0,x0:x,x1:x+passo*0.62}); t=Math.sqrt(H0); x+=passo*0.62;
+  for(var k=1;k<TOQUES;k++){
+    var h=alt[k], d=2*Math.sqrt(h);
+    segs.push({t0:t,t1:t+d,tipo:"arco",h:h,x0:x,x1:x+passo}); t+=d; x+=passo;
+  }
+  return {segs:segs,total:t};
+}
+var BOLA=arcos();
+function bolaEm(tt){
+  var s=BOLA.segs, i;
+  for(i=0;i<s.length;i++) if(tt<=s[i].t1) break;
+  if(i>=s.length) return {x:s[s.length-1].x1,y:0,k:s.length};
+  var g=s[i], u=(tt-g.t0)/(g.t1-g.t0);
+  var y = g.tipo==="queda" ? g.h*(1-u*u) : 4*g.h*u*(1-u);
+  return {x:g.x0+(g.x1-g.x0)*u, y:y, k:i};
+}
+
+function cenarioBola(c,tt,mostrar,topo){
+  var chao=H-86, esc=(chao-(topo||180))/H0;
+  c.save(); c.strokeStyle=P.fraco; c.lineWidth=2;
+  c.beginPath(); c.moveTo(70,chao); c.lineTo(W-60,chao); c.stroke();
+  c.restore();
+  // marcas de altura
+  var n=clamp(mostrar===undefined?TOQUES:mostrar,0,TOQUES);
+  for(var k=0;k<n;k++){
+    var g=k===0?BOLA.segs[0]:BOLA.segs[k];
+    var px=k===0?g.x0:(g.x0+g.x1)/2;
+    var py=chao-alt[k]*esc;
+    c.save(); c.globalAlpha=.55; c.strokeStyle=P["verde-cl"]; c.lineWidth=1; c.setLineDash([4,4]);
+    c.beginPath(); c.moveTo(px,py); c.lineTo(px,chao); c.stroke(); c.restore();
+    mono(c,alt[k]>=1?fmt(alt[k],alt[k]%1?2:0)+" m":alt[k].toFixed(3)+" m",px,py-9,11,P["verde-cl"],"center");
+  }
+  var b=bolaEm(tt);
+  c.save();
+  c.fillStyle=P.laranja; c.shadowColor=P.laranja; c.shadowBlur=14;
+  c.beginPath(); c.arc(b.x,chao-b.y*esc,11,0,7); c.fill();
+  c.restore();
+  return b;
+}
+
+var epPG={
+  nome:"A bola quicante", cor:"verde", dur:180,
+  cenas:[
+  { t:0, tit:"O problema", eyebrow:"CENA 1 · ENUNCIADO",
+    cap:"Uma bola é largada de <b>12 metros</b> de altura. Cada vez que toca o solo, ela sobe <b>50% da altura anterior</b>. Qual a distância total percorrida na vertical até o <b>oitavo toque</b>?",
+    draw:function(c,t){
+      titulo(c,"CENA 1 · ENUNCIADO","O problema",P["verde-cl"],ease(t/1.2));
+      var a=ease((t-0.8)/1.4);
+      c.save(); c.globalAlpha=a;
+      caixa(c,60,158,W-120,168,P["verde-cl"],.10,6);
+      moldura(c,60,158,W-120,168,P["verde-cl"],1.5,6);
+      linhasTexto(c,[
+        "A bola é largada de 12 m de altura.",
+        "A cada toque no solo, sobe metade da altura anterior.",
+        "",
+        "Que distância total ela percorre na vertical",
+        "até tocar o solo pela 8ª vez?"
+      ],92,200,21,32,P.branco,Math.floor((t-1.2)/0.85)+1);
+      c.restore();
+      if(t>5){ c.save(); c.globalAlpha=ease((t-5)/1.5); cenarioBola(c,((t-5)*1.5)%BOLA.total,3,346); c.restore(); }
+    }},
+  { t:20, tit:"A progressão", eyebrow:"CENA 2 · RECONHECER",
+    cap:"As alturas formam uma <b>progressão geométrica</b>: cada uma é a anterior <i>multiplicada</i> por 1/2. Esse multiplicador é a <b>razão</b> q.",
+    draw:function(c,t){
+      titulo(c,"CENA 2 · RECONHECER","As alturas formam uma PG",P["verde-cl"]);
+      var loop=(t*1.15)%(BOLA.total+1.2);
+      var vistos=clamp(Math.floor(t/2.2)+1,1,TOQUES);
+      cenarioBola(c,Math.min(loop,BOLA.total),vistos);
+      if(t>7){
+        c.save(); c.globalAlpha=ease((t-7)/1.2);
+        var xs=[110,240,370,500,630];
+        for(var k=0;k<5;k++){
+          mono(c,(alt[k]>=1?fmt(alt[k],alt[k]%1?1:0):alt[k].toFixed(2))+" m",xs[k],152,17,P["verde-cl"],"center");
+          if(k<4) mono(c,"×½",(xs[k]+xs[k+1])/2,134,12,P.laranja,"center");
+        }
+        c.restore();
+      }
+      if(t>16) formula(c,"a(n+1) = a(n) × q      q = 1/2",W/2,H-30,19,P.laranja);
+    }},
+  { t:56, tit:"Termo geral", eyebrow:"CENA 3 · FÓRMULA",
+    cap:"Na PG o expoente é <b>n − 1</b>, não n: o primeiro termo ainda não foi multiplicado por nada.",
+    draw:function(c,t){
+      titulo(c,"CENA 3 · FÓRMULA","Termo geral");
+      formula(c,"a(n) = a(1) × q^(n-1)",W/2,180,23,P.ambar);
+      var n=clamp(Math.floor(t/2.3)+1,1,6);
+      for(var k=0;k<n;k++){
+        var a=ease((t-k*2.3)/0.9);
+        c.save(); c.globalAlpha=a;
+        var y=236+k*40;
+        caixa(c,150,y-26,W-300,34,P["verde-cl"],k===n-1?.18:.08,4);
+        mono(c,"a("+(k+1)+") = 12 × (1/2)^"+k,182,y,17,P.branco);
+        mono(c,(alt[k]>=1?fmt(alt[k],alt[k]%1?2:0):alt[k].toFixed(3))+" m",W-182,y,17,P["verde-cl"],"right");
+        c.restore();
+      }
+    }},
+  { t:84, tit:"Montando a soma", eyebrow:"CENA 4 · MODELAGEM",
+    cap:"Cuidado com a contagem: a primeira queda é percorrida <b>uma vez só</b>. Todas as alturas seguintes são percorridas <b>duas vezes</b> — subindo e descendo.",
+    draw:function(c,t){
+      titulo(c,"CENA 4 · MODELAGEM","Quanto a bola percorre");
+      var chao=H-86, esc=(chao-252)/H0;
+      c.save(); c.strokeStyle=P.fraco; c.lineWidth=2;
+      c.beginPath(); c.moveTo(70,chao); c.lineTo(W-60,chao); c.stroke(); c.restore();
+      var n=clamp(Math.floor(t/3.4)+1,1,TOQUES);
+      var acum=0, passo=(W-210)/(TOQUES+0.6), x=100;
+      for(var k=0;k<n;k++){
+        var h=alt[k]*esc;
+        var px=k===0?x:x+passo*0.62+(k-1)*passo+passo/2;
+        c.save();
+        c.strokeStyle=k===0?P.laranja:P["verde-cl"]; c.lineWidth=3.2; c.lineCap="round";
+        c.beginPath(); c.moveTo(px-8,chao-h); c.lineTo(px-8,chao); c.stroke();
+        if(k>0){ c.beginPath(); c.moveTo(px+8,chao-h); c.lineTo(px+8,chao); c.stroke(); }
+        c.restore();
+        mono(c,(k===0?"1×":"2×")+(alt[k]>=1?fmt(alt[k],alt[k]%1?1:0):alt[k].toFixed(2)),px,chao-h-10,11,
+             k===0?P.laranja:P["verde-cl"],"center");
+        acum+= (k===0?1:2)*alt[k];
+      }
+      if(t>4){
+        c.save(); c.globalAlpha=ease((t-4)/1);
+        mono(c,"acumulado: "+fmt(acum,2).replace(".",",")+" m",W-70,150,18,P.branco,"right");
+        c.restore();
+      }
+      if(t>20) formula(c,"D = 12 + 2 × ( 6 + 3 + 1,5 + … )",W/2,196,19,P.laranja);
+      if(t>30) formula(c,"D = 12 + 2 × S, com S = soma de PG (q = 1/2)",W/2,H-34,17,P.ambar);
+    }},
+  { t:124, tit:"Somando a PG", eyebrow:"CENA 5 · CONTA",
+    cap:"A soma de uma PG sai multiplicando por q e subtraindo — e o resultado é uma fração exata: 573/16 de metro.",
+    draw:function(c,t){
+      titulo(c,"CENA 5 · CONTA","Somando a PG");
+      var passos=[
+        "S(n) = a(1) · ( q^n - 1 ) / ( q - 1 )",
+        "S = 6 · ( (1/2)^7 - 1 ) / ( 1/2 - 1 )  =  12 · ( 1 - 1/128 )",
+        "D = 12 + 2 · S = 12 + 24 · ( 1 - 1/128 )",
+        "D = 12 + 381/16  =  573/16",
+        "D ≈ 35,81 metros"
+      ];
+      var n=clamp(Math.floor(t/5.4),0,passos.length-1);
+      for(var i=0;i<=n;i++){
+        var a=ease((t-i*5.4)/1.1);
+        c.save(); c.globalAlpha=a;
+        var y=196+i*54, dest=(i>=passos.length-2);
+        caixa(c,76,y-30,W-152,44,dest?P.laranja:P["verde-cl"],dest?.20:.10,4);
+        if(i===passos.length-1) moldura(c,76,y-30,W-152,44,P.laranja,1.5,4);
+        mono(c,passos[i],98,y,i===passos.length-1?21:18,dest?P.laranja:P.branco);
+        c.restore();
+      }
+    }},
+  { t:162, tit:"E se fosse para sempre?", eyebrow:"CENA 6 · FECHO",
+    cap:"Se a bola quicasse <b>infinitas vezes</b>, a distância não cresceria sem limite: ela se aproximaria de <b>36 metros</b>. Uma soma infinita pode ser finita — esse é o coração da PG com |q| &lt; 1.",
+    draw:function(c,t){
+      titulo(c,"CENA 6 · FECHO","E se quicasse para sempre?");
+      var a=ease(t/1.2);
+      c.save(); c.globalAlpha=a;
+      caixa(c,W/2-250,162,230,96,P["verde-cl"],.16,8);
+      moldura(c,W/2-250,162,230,96,P["verde-cl"],1.5,8);
+      mono(c,"35,81 m",W/2-135,216,32,P["verde-cl"],"center");
+      txt(c,"até o 8º toque",W/2-135,240,14,P.fraco,400,"center");
+      caixa(c,W/2+20,162,230,96,P.laranja,.20,8);
+      moldura(c,W/2+20,162,230,96,P.laranja,2,8);
+      mono(c,"36 m",W/2+135,216,32,P.laranja,"center");
+      txt(c,"infinitos toques",W/2+135,240,14,P.fraco,400,"center");
+      c.restore();
+      if(t>3){
+        c.save(); c.globalAlpha=ease((t-3)/1.3);
+        formula(c,"D = 12 + 2 × ( 6 / ( 1 - 1/2 ) ) = 12 + 24 = 36",W/2,306,18,P.ambar);
+        c.restore();
+      }
+      if(t>7){ c.save(); c.globalAlpha=ease((t-7)/1.3); cenarioBola(c,((t-7)*1.2)%BOLA.total,TOQUES,352); c.restore(); }
+    }}
+  ]
+};
+
+/* ===================== player ===================== */
+var EPS={pa:epPA, pg:epPG};
+var atual="pa", t=0, tocando=false, vel=1, narrando=false, ultCena=-1;
+var cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+var elCap=document.getElementById("cap"), elTempo=document.getElementById("tempo");
+var elScrub=document.getElementById("scrub"), elCaps=document.getElementById("caps");
+var elPlay=document.getElementById("play"), elIco=document.getElementById("ico");
+var elVel=document.getElementById("vel"), elNarr=document.getElementById("narr");
+var elMarcas=document.getElementById("marcas");
+var ICO_PLAY="M3 1.5l11 6.5-11 6.5z", ICO_PAUSE="M3 2h4v12H3zM9 2h4v12H9z";
+
+function ep(){return EPS[atual];}
+function cenaEm(x){
+  var cs=ep().cenas, i=0;
+  for(var k=0;k<cs.length;k++) if(x>=cs[k].t) i=k;
+  return i;
+}
+function redim(){
+  var r=cv.getBoundingClientRect(), dpr=Math.min(window.devicePixelRatio||1,2);
+  cv.width=Math.max(1,Math.round(r.width*dpr)); cv.height=Math.max(1,Math.round(r.height*dpr));
+  desenha();
+}
+function desenha(){
+  var w=cv.width,h=cv.height,s=Math.min(w/W,h/H);
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.fillStyle=P.tela; ctx.fillRect(0,0,w,h);
+  ctx.setTransform(s,0,0,s,(w-W*s)/2,(h-H*s)/2);
+  var g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,P.tela2); g.addColorStop(1,P.tela);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  var i=cenaEm(t), c=ep().cenas[i];
+  try{ c.draw(ctx,t-c.t); }catch(e){}
+  // rodapé do palco
+  mono(ctx,ep().nome.toUpperCase()+"  ·  "+(atual==="pa"?"PROGRESSÃO ARITMÉTICA":"PROGRESSÃO GEOMÉTRICA"),
+       60,H-18,11,P.fraco);
+  mono(ctx,mmss(t)+" / 3:00",W-60,H-18,11,P.fraco,"right");
+}
+function atualizaUI(){
+  elScrub.value=String(t);
+  elTempo.textContent=mmss(t)+" / "+mmss(ep().dur);
+  var i=cenaEm(t);
+  if(i!==ultCena){
+    ultCena=i;
+    elCap.innerHTML=ep().cenas[i].cap;
+    Array.prototype.forEach.call(elCaps.children,function(b,k){
+      b.setAttribute("aria-current", k===i?"true":"false");});
+    if(narrando && tocando) fala(ep().cenas[i].cap);
+  }
+}
+function montaCapitulos(){
+  elCaps.innerHTML=""; elMarcas.innerHTML="";
+  ep().cenas.forEach(function(c,k){
+    var b=document.createElement("button");
+    b.className="cap"; b.type="button";
+    b.innerHTML='<span class="n">'+String(k+1).padStart(2,"0")+" · "+mmss(c.t)+'</span><span>'+c.tit+"</span>";
+    b.addEventListener("click",function(){ t=c.t; ultCena=-1; atualizaUI(); desenha(); });
+    elCaps.appendChild(b);
+    var m=document.createElement("span");
+    m.style.left=(c.t/ep().dur*100)+"%";
+    elMarcas.appendChild(m);
+  });
+}
+/* narração */
+function fala(html){
+  if(!("speechSynthesis" in window)) return;
+  var tmp=document.createElement("div"); tmp.innerHTML=html;
+  var u=new SpeechSynthesisUtterance(tmp.textContent||"");
+  u.lang="pt-BR"; u.rate=1.02; u.pitch=1;
+  try{ speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
+}
+elNarr.addEventListener("click",function(){
+  narrando=!narrando;
+  elNarr.setAttribute("aria-pressed",narrando?"true":"false");
+  if(!narrando){ try{speechSynthesis.cancel();}catch(e){} }
+  else if(tocando) fala(ep().cenas[cenaEm(t)].cap);
+});
+/* transporte */
+function setTocando(v){
+  tocando=v;
+  elIco.querySelector("path")?.setAttribute("d", v?ICO_PAUSE:ICO_PLAY);
+  elPlay.setAttribute("aria-label", v?"Pausar":"Reproduzir");
+  if(!v){ try{speechSynthesis.cancel();}catch(e){} }
+  else if(narrando) fala(ep().cenas[cenaEm(t)].cap);
+}
+elPlay.addEventListener("click",function(){
+  if(t>=ep().dur-0.05){ t=0; ultCena=-1; }
+  setTocando(!tocando);
+});
+elScrub.addEventListener("input",function(){
+  t=parseFloat(elScrub.value); ultCena=-1; atualizaUI(); desenha();
+});
+elVel.addEventListener("click",function(){
+  vel = vel===1 ? 1.5 : vel===1.5 ? 0.75 : 1;
+  elVel.textContent = (vel===0.75?"0,75":vel===1.5?"1,5":"1")+"×";
+});
+/* abas */
+Array.prototype.forEach.call(document.querySelectorAll(".ep"),function(b){
+  b.addEventListener("click",function(){
+    atual=b.dataset.k; t=0; ultCena=-1; setTocando(false);
+    document.body.dataset.ep=atual;
+    document.querySelectorAll(".ep").forEach(function(o){
+      o.setAttribute("aria-selected", o===b ? "true":"false");});
+    elScrub.max=String(ep().dur);
+    montaCapitulos(); montaLab(); montaQuiz(); atualizaUI(); desenha();
+  });
+});
+/* loop */
+var ultimo=null;
+function frame(ts){
+  if(ultimo===null) ultimo=ts;
+  var dt=Math.min((ts-ultimo)/1000,0.05); ultimo=ts;
+  if(tocando){
+    t+=dt*vel;
+    if(t>=ep().dur){ t=ep().dur; setTocando(false); }
+    atualizaUI(); desenha();
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ===================== laboratório ===================== */
+var lab=document.getElementById("labcv"), lctx=lab.getContext("2d");
+var labCtrls=document.getElementById("labCtrls"), labOut=document.getElementById("labOut");
+var estado={pa:{a1:1500,r:500,n:14}, pg:{h:12,q:50,n:8}};
+
+function ctrlHTML(id,rot,min,max,step,val){
+  return '<div class="ctrl"><label for="'+id+'">'+rot+'</label>'+
+         '<input type="range" id="'+id+'" min="'+min+'" max="'+max+'" step="'+step+'" value="'+val+'">'+
+         '<output id="'+id+'-o"></output></div>';
+}
+function montaLab(){
+  var e=estado[atual];
+  if(atual==="pa"){
+    document.getElementById("labTit").textContent="Mude a PA do maratonista";
+    document.getElementById("labSub").textContent="Altere o primeiro dia, a razão e a quantidade de dias.";
+    labCtrls.innerHTML =
+      ctrlHTML("pa-a1","1º dia (m)",200,4000,100,e.a1)+
+      ctrlHTML("pa-r","razão r (m)",0,1200,50,e.r)+
+      ctrlHTML("pa-n","dias n",3,30,1,e.n);
+  }else{
+    document.getElementById("labTit").textContent="Mude a bola";
+    document.getElementById("labSub").textContent="Altere a altura inicial, o quanto ela devolve e o nº de toques.";
+    labCtrls.innerHTML =
+      ctrlHTML("pg-h","altura inicial (m)",1,30,0.5,e.h)+
+      ctrlHTML("pg-q","devolve (%)",10,90,5,e.q)+
+      ctrlHTML("pg-n","toques n",1,15,1,e.n);
+  }
+  labCtrls.querySelectorAll("input").forEach(function(inp){
+    inp.addEventListener("input",function(){
+      var k=inp.id.split("-")[1];
+      estado[atual][k]=parseFloat(inp.value);
+      calcLab();
+    });
+  });
+  calcLab();
+}
+function calcLab(){
+  var e=estado[atual];
+  if(atual==="pa"){
+    document.getElementById("pa-a1-o").textContent=fmt(e.a1)+" m";
+    document.getElementById("pa-r-o").textContent=fmt(e.r)+" m";
+    document.getElementById("pa-n-o").textContent=e.n;
+    var an=e.a1+(e.n-1)*e.r, S=(e.a1+an)*e.n/2;
+    labOut.innerHTML=
+      pill("último termo a(n)",fmt(an)+" m")+
+      pill("soma S(n)",fmt(S)+" m")+
+      pill("em quilômetros",fmt(S/1000,2).replace(".",",")+" km");
+    desenhaLabPA(e,an);
+  }else{
+    var q=e.q/100;
+    document.getElementById("pg-h-o").textContent=fmt(e.h,e.h%1?1:0).replace(".",",")+" m";
+    document.getElementById("pg-q-o").textContent=e.q+" %";
+    document.getElementById("pg-n-o").textContent=e.n;
+    var dn = e.n===1 ? e.h : e.h + 2*e.h*q*(1-Math.pow(q,e.n-1))/(1-q);
+    var dinf = e.h + 2*e.h*q/(1-q);
+    var hn = e.h*Math.pow(q,e.n-1);
+    labOut.innerHTML=
+      pill("altura no "+e.n+"º toque",fmt(hn,2).replace(".",",")+" m")+
+      pill("distância até o "+e.n+"º toque",fmt(dn,2).replace(".",",")+" m")+
+      pill("limite (infinitos toques)",fmt(dinf,2).replace(".",",")+" m");
+    desenhaLabPG(e,q);
+  }
+}
+function pill(k,v){return '<div class="pill"><span class="k">'+k+'</span><span class="v">'+v+"</span></div>";}
+function prepLab(){
+  var r=lab.getBoundingClientRect(), dpr=Math.min(window.devicePixelRatio||1,2);
+  lab.width=Math.max(1,Math.round(r.width*dpr)); lab.height=Math.max(1,Math.round(r.height*dpr));
+  lctx.setTransform(dpr,0,0,dpr,0,0);
+  lctx.clearRect(0,0,r.width,r.height);
+  return {w:r.width,h:r.height};
+}
+function desenhaLabPA(e,an){
+  var d=prepLab(), y0=d.h-20, larg=(d.w-36)/e.n, hmax=Math.max(an,1);
+  for(var i=0;i<e.n;i++){
+    var v=e.a1+i*e.r, hh=(v/hmax)*(y0-16);
+    lctx.fillStyle=P["azul-cl"]; lctx.globalAlpha= i===e.n-1?1:.55;
+    lctx.beginPath(); lctx.roundRect(18+i*larg, y0-hh, Math.max(1,larg-3), hh, 2); lctx.fill();
+  }
+  lctx.globalAlpha=1; lctx.strokeStyle=P.linha; lctx.lineWidth=1;
+  lctx.beginPath(); lctx.moveTo(14,y0+.5); lctx.lineTo(d.w-14,y0+.5); lctx.stroke();
+}
+function desenhaLabPG(e,q){
+  var d=prepLab(), chao=d.h-18, esc=(chao-22)/Math.max(e.h,0.001);
+  lctx.strokeStyle=P.linha; lctx.lineWidth=1;
+  lctx.beginPath(); lctx.moveTo(14,chao+.5); lctx.lineTo(d.w-14,chao+.5); lctx.stroke();
+  var n=Math.min(e.n,15), passo=(d.w-44)/(n+0.5), x=24;
+  lctx.strokeStyle=P["verde-cl"]; lctx.lineWidth=2; lctx.lineCap="round";
+  lctx.beginPath(); lctx.moveTo(x,chao-e.h*esc);
+  for(var u=0;u<=14;u++){ var uu=u/14; lctx.lineTo(x+passo*0.6*uu, chao-e.h*(1-uu*uu)*esc); }
+  x+=passo*0.6;
+  for(var k=1;k<n;k++){
+    var h=e.h*Math.pow(q,k);
+    for(var s=0;s<=18;s++){ var v=s/18; lctx.lineTo(x+passo*v, chao-4*h*v*(1-v)*esc); }
+    x+=passo;
+  }
+  lctx.stroke();
+  lctx.fillStyle=P.laranja;
+  lctx.beginPath(); lctx.arc(24,chao-e.h*esc,4,0,7); lctx.fill();
+}
+
+/* ===================== quiz ===================== */
+var QUIZ={
+  pa:{ p:"Na mesma PA do vídeo (a₁ = 1 500 m, r = 500 m), quanto o maratonista correria no <b>20º</b> dia?",
+       o:["10 500 m","11 000 m","10 000 m"], c:1,
+       fb:["Esse é a(19). Lembre: do 1º ao 20º dia há 19 saltos… e 1500 + 19×500 = 11 000.",
+           "Isso: a(20) = 1 500 + 19 × 500 = 11 000 m. O expoente da contagem é n − 1.",
+           "Esse valor sairia de 1500 + 17×500. Confira o número de saltos: são 19."] },
+  pg:{ p:"Se a bola devolvesse <b>1/3</b> da altura (em vez de 1/2), qual seria a distância total com <b>infinitos</b> toques?",
+       o:["24 m","30 m","36 m"], c:0,
+       fb:["Isso: D = 12 + 2 · (4 / (1 − 1/3)) = 12 + 12 = 24 m. Quanto menos ela devolve, menor o total.",
+           "Quase. A soma das subidas é 4/(1−1/3) = 6, e o total é 12 + 2×6 = 24 m.",
+           "36 m é o caso q = 1/2. Com q = 1/3 a bola morre mais rápido: 24 m."] }
+};
+function montaQuiz(){
+  var q=QUIZ[atual], opts=document.getElementById("qOpts"), fb=document.getElementById("qFb");
+  document.getElementById("qEnun").innerHTML=q.p;
+  fb.textContent=""; opts.innerHTML="";
+  q.o.forEach(function(txto,i){
+    var b=document.createElement("button");
+    b.className="opt"; b.type="button";
+    b.innerHTML='<span class="l">'+"abc"[i]+")</span><span>"+txto+"</span>";
+    b.addEventListener("click",function(){
+      Array.prototype.forEach.call(opts.children,function(o){o.removeAttribute("data-st");});
+      b.setAttribute("data-st", i===q.c ? "ok":"no");
+      if(i!==q.c) opts.children[q.c].setAttribute("data-st","ok");
+      fb.textContent=q.fb[i];
+    });
+    opts.appendChild(b);
+  });
+}
+
+/* ===================== boot ===================== */
+function start(s){
+  s=s||{};
+  atual = EPS[s.ep] ? s.ep : "pa";
+  t = typeof s.t==="number" ? clamp(s.t,0,EPS[atual].dur) : 0;
+  document.body.dataset.ep=atual;
+  document.querySelectorAll(".ep").forEach(function(o){
+    o.setAttribute("aria-selected", o.dataset.k===atual ? "true":"false");});
+  elScrub.max=String(ep().dur);
+  montaCapitulos(); montaLab(); montaQuiz();
+  redim(); atualizaUI(); desenha();
+  requestAnimationFrame(frame);
+  window.addEventListener("resize",function(){ redim(); prepLab(); calcLab(); });
+  try{ window.claude?.hot?.snapshot?.(function(){ return {ep:atual,t:t}; }); }catch(e){}
+}
+try{
+  if(window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
+  else start(window.claude?.hot?.data);
+}catch(e){ start(); }
+})();
+</script>
+
+</body>
+</html>
